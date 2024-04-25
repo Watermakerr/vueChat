@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root {
+  --primary: #2b805a;
+  --primary-light: #6ee7b7;
+  --primary-disabled: #90bca9;
+  --primary-lighter: #a4c8b9;
+  --secondary: #1d1d1d;
+  --text: #11181c;
+  --text-gray: #687076;
+  --text-placeholder: #8890a7;
+  --border: #dfe3e6;
+  --btn-bg: #ededed;
+  --input-bg: #f1f2f3;
+  --main-side-background: #f8f9fa;
+  --error: #e5484d;
+}
+
+body {
+  font-size: 16px;
+  font-family:
+    Circular,
+    Helvetica Neue,
+    Helvetica,
+    Arial,
+    sans-serif;
+  font-feature-settings: normal;
+  font-variation-settings: normal;
+  height: 100vh;
+}
