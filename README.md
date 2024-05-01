@@ -1,3 +1,4 @@
+The backend server can be found [Here](https://github.com/Watermakerr/djangoChat).  
 # chatVue
 
 This template should help get you started developing with Vue 3 in Vite.
