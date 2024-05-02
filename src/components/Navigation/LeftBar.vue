@@ -40,8 +40,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { ref, computed } from 'vue'
 import { useStore } from '@/stores/store.js'
-import Message from './message.vue'
-import Home from './Home.vue'
+import MessageBar from './MessageBar.vue'
+import Home from '@/components/Chat/Home.vue'
 
 const store = useStore()
 
@@ -52,7 +52,7 @@ const setActiveComponent = component => {
 
 const activeComponent = computed(() => {
 	if (store.activeSidebarComponent === 'message') {
-		return Message
+		return MessageBar
 	} else if (store.activeSidebarComponent === 'home') {
 		return Home
 	} else {
