@@ -1,5 +1,5 @@
 <template>
-	<div style="display: flex">
+	<div style="display: flex" class="border-end">
 		<div class="icon-bar d-flex flex-column justify-content-between">
 			<div>
 				<a

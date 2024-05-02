@@ -23,8 +23,4 @@ import ChatInput from '../partial/ChatInput.vue'
 .w-100 {
 	height: 100vh; // Adjust this value as needed
 }
-
-.chat-container {
-	margin-bottom: 50px; // Adjust this value as needed
-}
 </style>
