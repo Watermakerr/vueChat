@@ -55,8 +55,6 @@ const activeComponent = computed(() => {
 		return MessageBar
 	} else if (store.activeSidebarComponent === 'home') {
 		return Home
-	} else {
-		return Message
 	}
 })
 </script>
