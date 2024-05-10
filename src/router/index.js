@@ -8,10 +8,9 @@ const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
 	routes: [
 		{
-			path: '/:catchAll(.*)',
+			path: '/',
 			name: 'home',
-			component: ChatView,
-			alias: ['/chat', '/chat/:id']
+			component: ChatView
 		},
 		{
 			path: '/test',

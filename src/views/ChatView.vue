@@ -7,14 +7,15 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router'
+import { useStore } from '@/stores/store'
 import LeftBar from '@/components/Navigation/LeftBar.vue'
 import NoChatSelected from '@/components/Chat/NoChatSelected.vue'
 import ChatWindow from '@/components/Chat/ChatWindow.vue'
 
+const store = useStore()
+
 const getActiveConversation = () => {
-	const route = useRouter()
-	return route.currentRoute.value.params.id ? true : false
+	return store.activeConversation ? true : false
 }
 </script>
 

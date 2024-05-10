@@ -27,6 +27,9 @@
 <script setup>
 import { ref } from 'vue'
 import profileImage from '@/assets/profile.jpg'
+import { useStore } from '@/stores/store'
+
+const store = useStore()
 
 const users = [
 	{
@@ -47,6 +50,8 @@ const selectedUserId = ref(null)
 
 const selectUser = id => {
 	selectedUserId.value = id
+	store.setActiveConversation(id)
+	console.log(store.activeConversation)
 }
 </script>
 
