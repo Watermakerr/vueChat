@@ -6,14 +6,21 @@
 				<p>User name</p>
 			</div>
 		</div>
+		<button class="close-btn" @click="closeChat">X</button>
 	</div>
 </template>
 
 <script setup>
 import Profile from '@/assets/profile.jpg'
 import { ref } from 'vue'
+import { useStore } from '@/stores/store'
 
+const store = useStore()
 const ProfileImg = ref(Profile)
+
+const closeChat = () => {
+	store.setActiveConversation(null)
+}
 </script>
 
 <style lang="scss" scoped>
@@ -32,8 +39,7 @@ img {
 	display: inline-block;
 	background-color: #efefef;
 	margin: 0;
-	border-top-left-radius: 20px;
-	border-top-right-radius: 20px;
+	position: relative;
 }
 /* Styling the profile picture */
 .msgimg {
@@ -46,5 +52,23 @@ img {
 	height: 100%;
 	float: left;
 	margin: 0;
+}
+.close-btn {
+	position: absolute;
+	top: 50%;
+	right: 2%;
+	transform: translateY(-50%);
+	border: 1px solid #000; /* Add this line */
+	background: none;
+	font-size: 1.5em;
+	cursor: pointer;
+	transition:
+		background-color 0.3s ease,
+		color 0.3s ease; /* Add this line */
+}
+
+.close-btn:hover {
+	background-color: #000; /* Add this line */
+	color: #fff; /* Add this line */
 }
 </style>
