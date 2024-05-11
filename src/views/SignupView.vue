@@ -7,34 +7,17 @@
 						<h1>Get started</h1>
 						<h2>Create a new account</h2>
 					</div>
-					<!-- <div class="socials-row">
-                        <a href="#" title="Use Google">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github"
-                                width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                                fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path
-                                    d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-                            </svg>
-                            Continue with Github
-                        </a>
-                    </div>
-                    <div class="divider">
-                        <div class="divider-line"></div>
-                        or
-                        <div class="divider-line"></div>
-                    </div> -->
 					<div class="text-field">
-						<label for="email">Email</label>
+						<label for="email">Username</label>
 						<input
-							type="email"
-							id="email"
-							name="email"
+							type="text"
+							id="usersame"
+							name="username"
 							autocomplete="off"
-							placeholder="you@example.com"
+							placeholder="Your username"
+							v-model="username"
 							required
 						/>
-						<div class="error-message">Email in incorrect format</div>
 					</div>
 					<div class="text-field">
 						<label for="password">Password</label>
@@ -43,9 +26,7 @@
 							type="password"
 							name="password"
 							placeholder="Your password"
-							title="Minimum 6 characters at 
-                                                        least 1 Alphabet and 1 Number"
-							pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$"
+							v-model="password"
 							required
 						/>
 						<div class="error-message">
@@ -73,7 +54,24 @@
 	</div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+import axios from 'axios'
+const name = ref('')
+const password = ref('')
+
+const login = async () => {
+	try {
+		const response = await axios.post('http://localhost:3000/register', {
+			name: name.value,
+			password: password.value
+		})
+		console.log(response.data)
+	} catch (error) {
+		console.error(error)
+	}
+}
+</script>
 
 <style lang="scss" scoped>
 * {

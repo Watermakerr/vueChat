@@ -19,7 +19,9 @@
 			</div>
 			<div>
 				<a href="#"><FontAwesomeIcon :icon="faGear" /></a>
-				<a href="#"><FontAwesomeIcon :icon="faUser" /></a>
+				<a>
+					<FontAwesomeIcon :icon="faUser" />
+				</a>
 				<a href="#"><FontAwesomeIcon :icon="faSignOut" /></a>
 			</div>
 		</div>
