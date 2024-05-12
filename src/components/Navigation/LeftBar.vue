@@ -2,25 +2,27 @@
 	<div style="display: flex" class="border-end">
 		<div class="icon-bar d-flex flex-column justify-content-between">
 			<div>
-				<a
-					href="#"
-					:class="{ active: store.activeSidebarComponent === 'home' }"
+				<button
+					:class="{ active: store.activeSidebarComponent.valueOf === 'home' }"
 					@click="setActiveComponent('home')"
 				>
 					<FontAwesomeIcon :icon="faHome" />
-				</a>
-				<a
-					href="#"
-					:class="{ active: store.activeSidebarComponent === 'message' }"
+				</button>
+				<button
+					:class="{
+						active: store.activeSidebarComponent.valueOf === 'message'
+					}"
 					@click="setActiveComponent('message')"
 				>
 					<FontAwesomeIcon :icon="faEnvelope" />
-				</a>
+				</button>
 			</div>
 			<div>
-				<a href="#"><FontAwesomeIcon :icon="faGear" /></a>
-				<a href="#"><FontAwesomeIcon :icon="faUser" /></a>
-				<a href="#"><FontAwesomeIcon :icon="faSignOut" /></a>
+				<button><FontAwesomeIcon :icon="faGear" /></button>
+
+				<button><FontAwesomeIcon :icon="faUser" /></button>
+
+				<button><FontAwesomeIcon :icon="faSignOut" /></button>
 			</div>
 		</div>
 		<div class="content">
@@ -48,6 +50,7 @@ const store = useStore()
 const setActiveComponent = component => {
 	localStorage.setItem('activeSidebarComponent', component)
 	store.activeSidebarComponent = component
+	console.log(store.activeSidebarComponent)
 }
 
 const activeComponent = computed(() => {
@@ -66,16 +69,19 @@ const activeComponent = computed(() => {
 	height: 100vh;
 }
 
-.icon-bar a {
+.icon-bar button {
 	display: block;
 	text-align: center;
 	padding: 16px;
 	transition: all 0.3s ease;
 	color: white;
 	font-size: 36px;
+	background: none;
+	border: none;
+	width: 100%;
 }
 
-.icon-bar a:hover {
+.icon-bar button:hover {
 	background-color: #000;
 }
 
