@@ -4,7 +4,7 @@
 		<div class="chat-container flex-grow-1 overflow-auto" ref="chatContainer">
 			<div v-for="message in messages" :key="message.id">
 				<OutGoingChat
-					v-if="message.sender === auth.currentUserId"
+					v-if="message.sender.id === auth.currentUserId"
 					:message="message"
 				/>
 				<ReceivedChat v-else :message="message" />
