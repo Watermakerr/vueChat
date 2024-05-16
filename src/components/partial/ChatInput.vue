@@ -1,17 +1,29 @@
 <template>
 	<div class="input-section">
-		<input type="text" v-model="message" placeholder="Type a message..." />
+		<input
+			type="text"
+			v-model="message"
+			@keyup.enter="sendMessage"
+			placeholder="Type a message..."
+		/>
 		<button @click="sendMessage">Send</button>
 	</div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, defineEmits } from 'vue'
+import { useAuthStore } from '@/stores/auth'
 
+const auth = useAuthStore()
 const message = ref('')
 
+const emit = defineEmits(['send-message'])
+
 const sendMessage = () => {
-	console.log(message.value)
+	emit('send-message', {
+		message: message.value,
+		sender_id: auth.currentUserId
+	})
 	message.value = ''
 }
 </script>
