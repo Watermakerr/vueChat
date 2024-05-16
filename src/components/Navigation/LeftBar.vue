@@ -10,9 +10,9 @@
 				</button>
 				<button
 					:class="{
-						active: store.activeSidebarComponent.valueOf === 'message'
+						active: store.activeSidebarComponent.valueOf === 'messages'
 					}"
-					@click="setActiveComponent('message')"
+					@click="setActiveComponent('messages')"
 				>
 					<FontAwesomeIcon :icon="faEnvelope" />
 				</button>
@@ -58,7 +58,7 @@ const setActiveComponent = component => {
 }
 
 const activeComponent = computed(() => {
-	if (store.activeSidebarComponent === 'message') {
+	if (store.activeSidebarComponent === 'messages') {
 		return MessageBar
 	} else if (store.activeSidebarComponent === 'home') {
 		return Home
