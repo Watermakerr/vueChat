@@ -22,7 +22,7 @@
 
 				<button><FontAwesomeIcon :icon="faUser" /></button>
 
-				<button><FontAwesomeIcon :icon="faSignOut" /></button>
+				<button><FontAwesomeIcon :icon="faSignOut" @click="logout" /></button>
 			</div>
 		</div>
 		<div class="content">
@@ -42,10 +42,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { ref, computed } from 'vue'
 import { useStore } from '@/stores/store.js'
+import { useAuthStore } from '@/stores/auth.js'
+import { useRouter } from 'vue-router'
 import MessageBar from './MessageBar.vue'
 import Home from '@/components/Chat/Home.vue'
 
 const store = useStore()
+const auth = useAuthStore()
+const router = useRouter()
 
 const setActiveComponent = component => {
 	localStorage.setItem('activeSidebarComponent', component)
@@ -60,6 +64,11 @@ const activeComponent = computed(() => {
 		return Home
 	}
 })
+
+const logout = () => {
+	auth.logout()
+	router.push('/login')
+}
 </script>
 
 <style lang="scss" scoped>

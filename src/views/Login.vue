@@ -1,11 +1,11 @@
 <script setup>
 import { ref } from 'vue'
 import axios from 'axios'
-import { authStore } from '@/stores/auth'
+import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 const username = ref('')
 const password = ref('')
-const store = authStore()
+const store = useAuthStore()
 const router = useRouter()
 
 const login = async () => {
@@ -18,9 +18,11 @@ const login = async () => {
 			}
 		)
 
-		console.log(response.data)
-		store.login(response.access_token, response.refresh_token)
-		console.log(store.isAuthenticated)
+		store.login(
+			response.data.access_token,
+			response.data.refresh_token,
+			response.data.user_id
+		)
 		router.push('/')
 	} catch (error) {
 		console.error(error)

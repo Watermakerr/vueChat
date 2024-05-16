@@ -3,12 +3,10 @@
 		<div class="received-msg">
 			<div class="received-msg-inbox">
 				<p>
-					Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates
-					vel cumque repellendus hic, est enim! Iste laudantium architecto
-					veritatis odio molestiae dignissimos dolor repudiandae eum quos,
-					suscipit, vitae tempore vel.
+					{{ props.message.message }}
 				</p>
-				<span class="time"> time </span>
+
+				<span class="time">{{ formatDate(props.message.timestamp) }}</span>
 			</div>
 		</div>
 	</div>
@@ -20,9 +18,22 @@ import { ref } from 'vue'
 
 const ProfileImg = ref(Profile)
 const props = defineProps({
-	content: String,
-	time: String
+	message: {
+		type: Object,
+		required: true,
+		default: () => ({ message: '', timestamp: '' })
+	}
 })
+const formatDate = timestamp => {
+	let date = new Date(timestamp)
+	let day = String(date.getDate()).padStart(2, '0') // pad single digit day with 0
+	let month = String(date.getMonth() + 1).padStart(2, '0') // pad single digit month with 0
+	let year = date.getFullYear()
+	let hours = String(date.getHours()).padStart(2, '0') // pad single digit hours with 0
+	let minutes = String(date.getMinutes()).padStart(2, '0') // pad single digit minutes with 0
+
+	return `${day}-${month}-${year} ${hours}:${minutes}`
+}
 </script>
 
 <style lang="scss" scoped>
