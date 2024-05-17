@@ -67,7 +67,7 @@ onMounted(() => {
 	console.log(auth.accessToken) // Use auth instead of authStore
 })
 
-const selectedUserId = ref(null)
+const selectedUserId = ref(store.activeConversation)
 
 const selectUser = id => {
 	selectedUserId.value = id
