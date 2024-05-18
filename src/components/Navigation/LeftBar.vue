@@ -46,10 +46,8 @@ import {
 import { ref, computed } from 'vue'
 import { useStore } from '@/stores/store.js'
 import { useAuthStore } from '@/stores/auth.js'
-import { useRouter } from 'vue-router'
 import MessageBar from './MessageBar.vue'
-import Home from '@/components/Chat/Home.vue'
-import Login from '@/views/Login.vue'
+
 const store = useStore()
 const auth = useAuthStore()
 const router = useRouter()

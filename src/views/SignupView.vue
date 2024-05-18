@@ -110,7 +110,6 @@
 <script setup>
 import { ref } from 'vue'
 import axios from 'axios'
-import { authStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 
 const username = ref('')
@@ -120,7 +119,6 @@ const lastname = ref('')
 // const birthday = ref('')
 // const gender = ref('')
 const email = ref('')
-const store = authStore()
 const router = useRouter()
 const isUsernameValid = ref(false)
 const isSuccess = ref(false)
