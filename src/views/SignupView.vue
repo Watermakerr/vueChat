@@ -2,20 +2,60 @@
 	<div class="all">
 		<div class="form-wrapper">
 			<main class="form-side">
-				<form class="my-form">
+				<form class="my-form" @submit.prevent="register">
 					<div class="form-welcome-row">
-						<h1>Get started</h1>
+						<h1>Sign up</h1>
 						<h2>Create a new account</h2>
 					</div>
+					<div class="text-field-row">
+						<div class="text-field">
+							<label for="firstname">First name</label>
+							<input
+								id="firstname"
+								type="text"
+								name="firstname"
+								placeholder="First name"
+								v-model="firstname"
+								required
+							/>
+						</div>
+						<div class="text-field">
+							<label for="lastname">Last name</label>
+							<input
+								id="lastname"
+								type="text"
+								name="lastname"
+								placeholder="Last name"
+								v-model="lastname"
+								required
+							/>
+						</div>
+					</div>
 					<div class="text-field">
-						<label for="email">Username</label>
+						<label for="username">Username</label>
 						<input
 							type="text"
-							id="usersame"
+							id="username"
 							name="username"
 							autocomplete="off"
-							placeholder="Your username"
+							placeholder="Username"
 							v-model="username"
+							@input="checkUsername"
+							required
+						/>
+						<div v-if="!isUsernameValid" class="error-message">
+							Username must contain at least one letter and one number
+						</div>
+					</div>
+					<div class="text-field">
+						<label for="email">Email</label>
+						<input
+							type="email"
+							id="email"
+							name="email"
+							autocomplete="off"
+							placeholder="Email"
+							v-model="email"
 							required
 						/>
 					</div>
@@ -25,48 +65,96 @@
 							id="password"
 							type="password"
 							name="password"
-							placeholder="Your password"
 							v-model="password"
 							required
 						/>
-						<div class="error-message">
-							Minimum 6 characters at least 1 Alphabet and 1 Number
-						</div>
 					</div>
+					<!-- <div class="text-field">
+						<label for="birthday">Birthday</label>
+						<input
+							id="birthday"
+							type="date"
+							name="birthday"
+							placeholder="Birthday"
+							v-model="birthday"
+							required
+						/>
+					</div>
+					<div class="text-field">
+						<label for="gender">Gender</label>
+						<select id="gender" name="gender" v-model="gender" required>
+							<option value="male">Male</option>
+							<option value="female">Female</option>
+							<option value="other">Khác</option>
+						</select>
+					</div> -->
 					<button class="my-form__button" type="submit">Sign up</button>
 					<div class="my-form__actions">
 						<div class="my-form__row">
 							<span>Have an account?</span>
-							<a href="#" title="Reset Password"> Sign In Now </a>
+							<router-link to="/login" title="Login"> Login </router-link>
 						</div>
 					</div>
 				</form>
 			</main>
-			<aside class="info-side">
-				<div class="blockquote-wrapper">
-					<blockquote>
-						Working with Supabase is just fun. It makes working with a DB so
-						much easier.
-					</blockquote>
-				</div>
-			</aside>
 		</div>
+	</div>
+	<div v-if="isSuccess" class="notification">
+		<div class="notification__body">
+			Your account has been created! &#128640;
+		</div>
+		<div class="notification__progress"></div>
 	</div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import axios from 'axios'
-const name = ref('')
-const password = ref('')
+import { authStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
 
-const login = async () => {
+const username = ref('')
+const password = ref('')
+const firstname = ref('')
+const lastname = ref('')
+// const birthday = ref('')
+// const gender = ref('')
+const email = ref('')
+const store = authStore()
+const router = useRouter()
+const isUsernameValid = ref(false)
+const isSuccess = ref(false)
+
+const checkUsername = () => {
+	const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{2,}$/
+	isUsernameValid.value = regex.test(username.value)
+}
+const showSuccessNotification = () => {
+	isSuccess.value = true
+	setTimeout(() => {
+		isSuccess.value = false
+	}, 5000)
+	console.log('User registered successfully!')
+}
+
+const register = async () => {
 	try {
-		const response = await axios.post('http://localhost:3000/register', {
-			name: name.value,
-			password: password.value
-		})
+		const response = await axios.post(
+			'http://127.0.0.1:8000/api/v1/user/register/',
+			{
+				username: username.value,
+				email: email.value,
+				first_name: firstname.value,
+				last_name: lastname.value,
+				// birthday: birthday.value,
+				// gender: gender.value,
+				password: password.value
+			}
+		)
 		console.log(response.data)
+		isSuccess.value = true
+		showSuccessNotification()
+		router.push('/login')
 	} catch (error) {
 		console.error(error)
 	}
@@ -84,58 +172,23 @@ const login = async () => {
 	background-color: var(--primary-light);
 }
 
-.socials-row {
-	display: flex;
-}
-
-.socials-row img {
-	width: 1.5rem;
-	height: 1.5rem;
-}
-
-.socials-row > a {
-	padding: 0.5rem;
-	border-radius: 0.5rem;
-	width: 100%;
-	min-height: 2.75rem;
-	display: flex;
-	gap: 0.75rem;
-	color: var(--text);
-	justify-content: center;
-	align-items: center;
-	text-decoration: none;
-	font-size: 1.1rem;
-	color: var(--text);
-	padding: 0.5rem;
-	border: 1px solid var(--border);
-	transition: all 0.3s ease;
-	box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;
-}
-
-.socials-row > a svg {
-	color: var(--text);
-}
-
-.socials-row > a:hover {
-	background-color: var(--btn-bg);
-}
-
 .form-welcome-row {
 	margin-bottom: 1rem;
 }
 
 .form-welcome-row h1 {
 	color: var(--text);
-	font-size: 2rem;
+	// text-align: center;
+	font-size: 3rem;
 	line-height: 2rem;
-	font-weight: normal;
-	margin-top: 2rem;
-	margin-bottom: 0.75rem;
+	font-weight: bold;
+	margin-top: 3rem;
+	margin-bottom: 2rem;
 }
 
 .form-welcome-row h2 {
 	color: var(--text-gray);
-	font-size: 1.1rem;
+	font-size: 1.5rem;
 	font-weight: normal;
 }
 
@@ -157,7 +210,7 @@ const login = async () => {
 .form-wrapper {
 	position: relative;
 	display: grid;
-	grid-template-columns: 6fr 5fr;
+	// grid-template-columns: 6fr 5fr;
 	margin: 0 auto;
 	height: 100%;
 }
@@ -170,14 +223,6 @@ const login = async () => {
 	background-color: var(--main-side-background);
 	box-shadow: rgba(99, 99, 99, 0.1) 3px 2px 2px -1px;
 }
-
-.logo {
-	height: 1.5rem;
-	position: absolute;
-	top: 1.5rem;
-	left: 1.5rem;
-}
-
 .my-form {
 	display: flex;
 	flex-direction: column;
@@ -211,7 +256,7 @@ const login = async () => {
 
 .my-form:invalid .my-form__button {
 	pointer-events: none;
-	background-color: var(--primary-disabled);
+	background-color: rgb(3, 101, 47);
 	border: 1px solid var(--primary-light);
 }
 
@@ -245,6 +290,19 @@ const login = async () => {
 }
 
 .text-field input {
+	color: var(--secondary);
+	max-width: 100%;
+	width: 100%;
+	border: 1px solid var(--border);
+	min-height: 2.75rem;
+	letter-spacing: 0.03rem;
+	outline: none;
+	background-color: var(--input-bg);
+	transition: 0.25s;
+	border-radius: 0.5rem;
+	text-indent: 1.25rem;
+}
+.text-field select {
 	color: var(--secondary);
 	max-width: 100%;
 	width: 100%;
@@ -333,6 +391,14 @@ const login = async () => {
 	font-weight: 600;
 	color: var(--text-gray);
 }
+.text-field-row {
+	display: flex;
+	gap: 1rem; /* Đặt khoảng cách giữa các trường nhập liệu */
+}
+
+.text-field {
+	flex: 1; /* Mỗi trường nhập liệu chiếm phần bằng nhau của hàng */
+}
 
 @media (max-width: 720px) {
 	.form-wrapper {
@@ -342,6 +408,71 @@ const login = async () => {
 
 	.info-side {
 		display: none;
+	}
+}
+.notification {
+	position: absolute;
+	width: max-content;
+	left: 0;
+	right: 0;
+	bottom: 1.5rem;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 0.375rem;
+	background-color: var(--notification-background);
+	color: var(--notification-primary);
+	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+	transform: translateY(1.875rem);
+	opacity: 0;
+	visibility: hidden;
+	animation: fade-in 3s linear;
+}
+
+.notification__icon {
+	height: 1.625rem;
+	width: 1.625rem;
+	margin-right: 0.25rem;
+}
+
+.notification__body {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 1rem 0.5rem;
+}
+
+.notification__progress {
+	position: absolute;
+	left: 0.25rem;
+	bottom: 0.25rem;
+	width: calc(100% - 0.5rem);
+	height: 0.2rem;
+	transform: scaleX(0);
+	transform-origin: left;
+	background: linear-gradient(
+		to right,
+		var(--notification-background),
+		var(--notification-primary)
+	);
+	border-radius: inherit;
+	animation: progress 2.5s 0.3s linear;
+}
+
+@keyframes fade-in {
+	5% {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0);
+	}
+	95% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes progress {
+	to {
+		transform: scaleX(1);
 	}
 }
 </style>

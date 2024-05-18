@@ -18,7 +18,9 @@
 				</button>
 			</div>
 			<div>
-				<button><FontAwesomeIcon :icon="faGear" /></button>
+				<button @click="login">
+					<FontAwesomeIcon :icon="faGear" />
+				</button>
 
 				<button><FontAwesomeIcon :icon="faUser" /></button>
 
@@ -32,6 +34,7 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
 	faHome,
@@ -44,8 +47,13 @@ import { ref, computed } from 'vue'
 import { useStore } from '@/stores/store.js'
 import MessageBar from './MessageBar.vue'
 import Home from '@/components/Chat/Home.vue'
-
+import Login from '@/views/Login.vue'
 const store = useStore()
+const router = useRouter() // Thêm dòng này để khai báo biến router
+
+const login = () => {
+	router.push('/login') // Sử dụng biến router để thực hiện chuyển hướng
+}
 
 const setActiveComponent = component => {
 	localStorage.setItem('activeSidebarComponent', component)

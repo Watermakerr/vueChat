@@ -101,7 +101,9 @@ const login = async () => {
 			<div class="my-form__actions">
 				<div class="my-form__row">
 					<span>Don't have an account?</span>
-					<a href="SignupView.vue" title="Create Account"> Create account </a>
+					<router-link to="/signup" title="Create Account">
+						Create account
+					</router-link>
 				</div>
 			</div>
 		</form>
@@ -170,28 +172,29 @@ const login = async () => {
 
 .my-form__button {
 	background-color: var(--primary);
+	border: 1px solid var(--primary-light);
 	color: white;
 	white-space: nowrap;
 	border: none;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-top: 1rem;
-	line-height: 3.125rem;
+	margin-top: 1.5rem;
+	line-height: 2.75rem;
 	outline: none;
 	font-size: 1.125rem;
-	letter-spacing: 0.025rem;
 	text-decoration: none;
 	cursor: pointer;
-	font-weight: 800;
-	min-height: 3.125rem;
 	width: 100%;
-	border-radius: 10rem;
+	border-radius: 0.5rem;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 	transition: all 0.3s ease;
-	-webkit-transition: all 0.3s ease;
 }
-.my-form__button:hover {
-	background-color: var(--primary-dark);
+
+.my-form:invalid .my-form__button {
+	pointer-events: none;
+	background-color: var(--primary-disabled);
+	border: 1px solid var(--primary-light);
 }
 
 /*? input wrapper */
