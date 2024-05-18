@@ -99,12 +99,13 @@
 			</main>
 		</div>
 	</div>
-	<div v-if="isSuccess" class="notification">
+	<!-- <div v-if="isSuccess" class="notification">
 		<div class="notification__body">
 			Your account has been created! &#128640;
 		</div>
 		<div class="notification__progress"></div>
-	</div>
+	</div> -->
+	<Notification v-if="isSuccess" />
 </template>
 
 <script setup>
@@ -122,6 +123,7 @@ const email = ref('')
 const router = useRouter()
 const isUsernameValid = ref(false)
 const isSuccess = ref(false)
+import Notification from './Notification.vue'
 
 const checkUsername = () => {
 	const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{2,}$/
@@ -151,8 +153,9 @@ const register = async () => {
 		)
 		console.log(response.data)
 		isSuccess.value = true
-		showSuccessNotification()
-		router.push('/login')
+		setTimeout(() => {
+			router.push('/login')
+		}, 5000)
 	} catch (error) {
 		console.error(error)
 	}
@@ -408,7 +411,7 @@ const register = async () => {
 		display: none;
 	}
 }
-.notification {
+.fication {
 	position: absolute;
 	width: max-content;
 	left: 0;
@@ -424,36 +427,6 @@ const register = async () => {
 	opacity: 0;
 	visibility: hidden;
 	animation: fade-in 3s linear;
-}
-
-.notification__icon {
-	height: 1.625rem;
-	width: 1.625rem;
-	margin-right: 0.25rem;
-}
-
-.notification__body {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	padding: 1rem 0.5rem;
-}
-
-.notification__progress {
-	position: absolute;
-	left: 0.25rem;
-	bottom: 0.25rem;
-	width: calc(100% - 0.5rem);
-	height: 0.2rem;
-	transform: scaleX(0);
-	transform-origin: left;
-	background: linear-gradient(
-		to right,
-		var(--notification-background),
-		var(--notification-primary)
-	);
-	border-radius: inherit;
-	animation: progress 2.5s 0.3s linear;
 }
 
 @keyframes fade-in {

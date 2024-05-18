@@ -1,6 +1,6 @@
 <template>
 	<div class="body">
-		<div v-if="isSuccess" class="notification">
+		<div class="notification">
 			<div class="notification__body">
 				Your account has been created! &#128640;
 			</div>
@@ -9,26 +9,7 @@
 	</div>
 </template>
 
-<script setup>
-import { ref, onMounted } from 'vue'
-
-// Đặt isSuccess và showSuccessNotification ở đây
-const isSuccess = ref(false)
-
-const showSuccessNotification = () => {
-	isSuccess.value = true
-	setTimeout(() => {
-		isSuccess.value = false
-	}, 5000)
-}
-
-// Lắng nghe sự kiện show-notification
-onMounted(() => {
-	// Giả định có một event bus toàn cầu
-	const eventBus = window.eventBus || { $on: () => {} }
-	eventBus.$on('show-notification', showSuccessNotification)
-})
-</script>
+<script setup></script>
 
 <style>
 :root {
@@ -65,6 +46,7 @@ body {
 	opacity: 0;
 	visibility: hidden;
 	animation: fade-in 3s linear;
+	z-index: 99;
 }
 
 .notification__icon {
