@@ -10,9 +10,9 @@
 				</button>
 				<button
 					:class="{
-						active: store.activeSidebarComponent.valueOf === 'message'
+						active: store.activeSidebarComponent.valueOf === 'messages'
 					}"
-					@click="setActiveComponent('message')"
+					@click="setActiveComponent('messages')"
 				>
 					<FontAwesomeIcon :icon="faEnvelope" />
 				</button>
@@ -24,7 +24,7 @@
 
 				<button><FontAwesomeIcon :icon="faUser" /></button>
 
-				<button><FontAwesomeIcon :icon="faSignOut" /></button>
+				<button><FontAwesomeIcon :icon="faSignOut" @click="logout" /></button>
 			</div>
 		</div>
 		<div class="content">
@@ -45,15 +45,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { ref, computed } from 'vue'
 import { useStore } from '@/stores/store.js'
+import { useAuthStore } from '@/stores/auth.js'
+import { useRouter } from 'vue-router'
 import MessageBar from './MessageBar.vue'
 import Home from '@/components/Chat/Home.vue'
 import Login from '@/views/Login.vue'
 const store = useStore()
-const router = useRouter() // Thêm dòng này để khai báo biến router
-
-const login = () => {
-	router.push('/login') // Sử dụng biến router để thực hiện chuyển hướng
-}
+const auth = useAuthStore()
+const router = useRouter()
 
 const setActiveComponent = component => {
 	localStorage.setItem('activeSidebarComponent', component)
@@ -62,12 +61,17 @@ const setActiveComponent = component => {
 }
 
 const activeComponent = computed(() => {
-	if (store.activeSidebarComponent === 'message') {
+	if (store.activeSidebarComponent === 'messages') {
 		return MessageBar
 	} else if (store.activeSidebarComponent === 'home') {
 		return Home
 	}
 })
+
+const logout = () => {
+	auth.logout()
+	router.push('/login')
+}
 </script>
 
 <style lang="scss" scoped>
