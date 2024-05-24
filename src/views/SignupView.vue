@@ -135,7 +135,7 @@ const phoneNumber = ref('')
 const router = useRouter()
 const isUsernameValid = ref(false)
 const isSuccess = ref(false)
-import Notification from './Notification.vue'
+import Notification from '../components/partial/Notification.vue'
 
 const checkUsername = () => {
 	const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{2,}$/
@@ -143,9 +143,6 @@ const checkUsername = () => {
 }
 const showSuccessNotification = () => {
 	isSuccess.value = true
-	setTimeout(() => {
-		isSuccess.value = false
-	}, 5000)
 	console.log('User registered successfully!')
 }
 
@@ -165,7 +162,7 @@ const register = async () => {
 			}
 		)
 		console.log(response.data)
-		isSuccess.value = true
+		showSuccessNotification()
 		setTimeout(() => {
 			router.push('/login')
 		}, 5000)

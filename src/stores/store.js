@@ -2,6 +2,10 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useStore = defineStore('store', () => {
+	const profile_id = ref(null)
+	const setProfileId = id => {
+		profile_id.value = id
+	}
 	const activeSidebarComponent = ref(
 		localStorage.getItem('activeSidebarComponent') || 'messages'
 	)
@@ -16,6 +20,8 @@ export const useStore = defineStore('store', () => {
 	return {
 		activeSidebarComponent,
 		activeConversation,
-		setActiveConversation
+		setActiveConversation,
+		profile_id,
+		setProfileId // make sure to return setProfileId here
 	}
 })

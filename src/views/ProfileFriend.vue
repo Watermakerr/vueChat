@@ -19,11 +19,12 @@
 					<p class="info-text">Số điện thoại:</p>
 				</div>
 				<div class="column-large">
-					<p class="info-text">Nguyễn Văn A</p>
-					<p class="info-text">abcd9@</p>
-					<p class="info-text">01/01/2000</p>
-					<p class="info-text">Nam</p>
-					<p class="info-text">nguyenvana@gmail.com</p>
+					<p class="info-text">{{ user?.first_name }} {{ user?.last_name }}</p>
+					<p class="info-text">{{ user?.username }}</p>
+					<p class="info-text">{{ user?.birthDay }}</p>
+					<p class="info-text">{{ user?.gender === 0 ? 'Nam' : 'Nữ' }}</p>
+					<p class="info-text">{{ user?.email }}</p>
+					<p class="info-text">{{ user?.phone }}</p>
 				</div>
 			</div>
 			<div class="button">
@@ -36,41 +37,37 @@
 </template>
 
 <script setup>
-// import { ref, onMounted } from 'vue'
-// import axios from 'axios'
-// import { useAuthStore } from '@/stores/auth'
-// import { useRouter } from 'vue-router'
+import { ref, onMounted } from 'vue'
+import axiosInstance from '@/api/axios.js'
+import { useAuthStore } from '@/stores/auth'
 import { useStore } from '@/stores/store'
 const store = useStore()
+const auth = useAuthStore()
 
-// const password = ref('')
-// const firstname = ref('')
-// const lastname = ref('')
-// const birthday = ref('')
-// const gender = ref('')
-// const email = ref('')
-// const phoneNumber = ref('')
-// const user = ref(null)
-// const user_id = ref() // Thay thế bằng ID người dùng thực tế hoặc nhận từ route hoặc props
+const user = ref(null)
+
+onMounted(() => {
+	const fetchUserProfile = async () => {
+		try {
+			const response = await axiosInstance.get(
+				`/api/v1/user/profile/${store.profile_id}`,
+				{
+					headers: {
+						Authorization: `Bearer ${auth.accessToken}`
+					}
+				}
+			)
+			user.value = response.data
+		} catch (error) {
+			console.error(error)
+		}
+	}
+	fetchUserProfile()
+})
 
 const closeProfileFriend = () => {
-	store.goToProfileFriend = false
+	store.setProfileId(null)
 }
-
-// const fetchUserProfile = async () => {
-// 	try {
-// 		const response = await axios.get(
-// 			`http://127.0.0.1:8000/api/v1/user/profile/${user_id}`
-// 		)
-// 		user.value = response.data // Đảm bảo rằng response.data có cấu trúc { first_name, last_name, email }
-// 	} catch (error) {
-// 		console.error('Không thể lấy thông tin hồ sơ người dùng:', error)
-// 	}
-// }
-
-// onMounted(() => {
-// 	fetchUserProfile()
-// })
 </script>
 
 <style>

@@ -23,6 +23,9 @@ const login = async () => {
 			response.data.refresh_token,
 			response.data.user_id
 		)
+		console.log(response.data)
+		console.log(store.accessToken)
+		console.log(store.isAuthenticated)
 		router.push('/')
 	} catch (error) {
 		console.error(error)

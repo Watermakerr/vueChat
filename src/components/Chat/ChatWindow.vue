@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { ref, onUpdated, onMounted, watch, nextTick, onUnmounted } from 'vue'
+import { ref, onUpdated, onMounted, watch, nextTick, defineEmits } from 'vue'
 import ChatTop from '@/components/partial/ChatTop.vue'
 import OutGoingChat from '@/components/partial/OutGoingChat.vue'
 import ReceivedChat from '../partial/ReceivedChat.vue'
@@ -29,11 +29,14 @@ const store = useStore()
 const auth = useAuthStore()
 const chatContainer = ref(null)
 const messages = ref([])
-const goToProfileFriend = ref(false)
+import { useChatStore } from '@/stores/chat'
+
+const chatStore = useChatStore()
 
 // WebSocket setup
 let sendSocket = null
 let receiveSocket = null
+const emit = defineEmits(['message-sent'])
 
 const handleSendMessage = ({ message, sender_id }) => {
 	if (sendSocket && sendSocket.readyState === WebSocket.OPEN) {
@@ -47,12 +50,18 @@ const handleSendMessage = ({ message, sender_id }) => {
 			})
 		)
 	}
+
 	// Add the new message to the messages array
-	messages.value.push({
+	const newMessage = {
 		message,
 		sender: { id: sender_id },
 		timestamp: new Date()
-	})
+	}
+	messages.value = [...messages.value, newMessage]
+
+	// Emit the 'message-sent' event
+	chatStore.sendMessage(message)
+	emit('message-sent', newMessage)
 }
 
 const setupWebSocket = conversationId => {

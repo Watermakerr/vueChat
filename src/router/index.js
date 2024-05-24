@@ -50,43 +50,43 @@ const router = createRouter({
 	]
 })
 
-router.beforeEach(async (to, from, next) => {
-	const auth = useAuthStore()
-	console.log(auth.isAuthenticated)
+// router.beforeEach(async (to, from, next) => {
+// 	const auth = useAuthStore()
+// 	console.log(auth.isAuthenticated)
 
-	if (to.name !== 'login' && to.name !== 'signup' && !auth.isAuthenticated) {
-		next({ name: 'login' })
-	} else if (
-		(to.name === 'login' || to.name === 'signup') &&
-		auth.isAuthenticated
-	) {
-		next({ name: 'home' })
-	} else if (auth.accessToken && !auth.isAuthenticated) {
-		try {
-			await axiosInstance.get('/api/v1/validate-token/', {
-				headers: { Authorization: `Bearer ${auth.accessToken}` }
-			})
-			next()
-		} catch (error) {
-			if (auth.refreshToken) {
-				try {
-					const response = await axiosInstance.post('/api/v1/refresh-token/', {
-						refresh: auth.refreshToken
-					})
-					auth.login(response.data.access, auth.refreshToken)
-					next()
-				} catch (error) {
-					auth.logout()
-					next({ name: 'login' })
-				}
-			} else {
-				auth.logout()
-				next({ name: 'login' })
-			}
-		}
-	} else {
-		next()
-	}
-})
+// 	if (to.name !== 'login' && to.name !== 'signup' && !auth.isAuthenticated) {
+// 		next({ name: 'login' })
+// 	} else if (
+// 		(to.name === 'login' || to.name === 'signup') &&
+// 		auth.isAuthenticated
+// 	) {
+// 		next({ name: 'home' })
+// 	} else if (auth.accessToken && !auth.isAuthenticated) {
+// 		try {
+// 			await axiosInstance.get('/api/v1/validate-token/', {
+// 				headers: { Authorization: `Bearer ${auth.accessToken}` }
+// 			})
+// 			next()
+// 		} catch (error) {
+// 			if (auth.refreshToken) {
+// 				try {
+// 					const response = await axiosInstance.post('/api/v1/refresh-token/', {
+// 						refresh: auth.refreshToken
+// 					})
+// 					auth.login(response.data.access, auth.refreshToken)
+// 					next()
+// 				} catch (error) {
+// 					auth.logout()
+// 					next({ name: 'login' })
+// 				}
+// 			} else {
+// 				auth.logout()
+// 				next({ name: 'login' })
+// 			}
+// 		}
+// 	} else {
+// 		next()
+// 	}
+// })
 
 export default router
