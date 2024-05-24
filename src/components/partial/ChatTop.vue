@@ -2,11 +2,11 @@
 	<div class="msg-header">
 		<div class="container1">
 			<img :src="ProfileImg" class="msgimg" />
-			<div class="active">
+			<div class="active" @click="showProfileFriend()">
 				<p>User name</p>
 			</div>
 		</div>
-		<button class="close-btn" @click="closeChat">X</button>
+		<button class="close-btn" @click="closeChat">x</button>
 	</div>
 </template>
 
@@ -20,6 +20,10 @@ const ProfileImg = ref(Profile)
 
 const closeChat = () => {
 	store.setActiveConversation(null)
+}
+
+const showProfileFriend = () => {
+	store.goToProfileFriend = true
 }
 </script>
 
@@ -57,11 +61,12 @@ img {
 	position: absolute;
 	top: 50%;
 	right: 2%;
-	transform: translateY(-50%);
+	// transform: translateY(-50%);
 	border: 1px solid #000; /* Add this line */
 	background: none;
-	font-size: 1.5em;
-	cursor: pointer;
+	// font-size: 1.5em;
+	width: 30px;
+	height: 30px;
 	transition:
 		background-color 0.3s ease,
 		color 0.3s ease; /* Add this line */

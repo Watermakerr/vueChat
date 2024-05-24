@@ -29,6 +29,7 @@ const store = useStore()
 const auth = useAuthStore()
 const chatContainer = ref(null)
 const messages = ref([])
+const goToProfileFriend = ref(false)
 
 // WebSocket setup
 let sendSocket = null

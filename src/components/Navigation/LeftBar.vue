@@ -18,11 +18,13 @@
 				</button>
 			</div>
 			<div>
-				<button @click="login">
+				<button>
 					<FontAwesomeIcon :icon="faGear" />
 				</button>
 
-				<button><FontAwesomeIcon :icon="faUser" /></button>
+				<button>
+					<FontAwesomeIcon :icon="faUser" @click="profile" />
+				</button>
 
 				<button><FontAwesomeIcon :icon="faSignOut" @click="logout" /></button>
 			</div>
@@ -61,10 +63,11 @@ const setActiveComponent = component => {
 const activeComponent = computed(() => {
 	if (store.activeSidebarComponent === 'messages') {
 		return MessageBar
-	} else if (store.activeSidebarComponent === 'home') {
-		return Home
 	}
 })
+const profile = () => {
+	router.push('/profile')
+}
 
 const logout = () => {
 	auth.logout()

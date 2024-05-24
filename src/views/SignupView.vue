@@ -83,10 +83,21 @@
 					<div class="text-field">
 						<label for="gender">Gender</label>
 						<select id="gender" name="gender" v-model="gender" required>
-							<option value="male">Male</option>
-							<option value="female">Female</option>
-							<option value="other">Khác</option>
+							<option value="0">Male</option>
+							<option value="1">Female</option>
+							<option value="2">Khác</option>
 						</select>
+					</div>
+					<div class="text-field">
+						<label for="phoneNumber">Phone number</label>
+						<input
+							id="phoneNumber"
+							type="text"
+							name="phoneNumber"
+							placeholder="Phone Number"
+							v-model="phoneNumber"
+							required
+						/>
 					</div>
 					<button class="my-form__button" type="submit">Sign up</button>
 					<div class="my-form__actions">
@@ -117,9 +128,10 @@ const username = ref('')
 const password = ref('')
 const firstname = ref('')
 const lastname = ref('')
-// const birthday = ref('')
-// const gender = ref('')
+const birthday = ref('')
+const gender = ref('')
 const email = ref('')
+const phoneNumber = ref('')
 const router = useRouter()
 const isUsernameValid = ref(false)
 const isSuccess = ref(false)
@@ -146,9 +158,10 @@ const register = async () => {
 				email: email.value,
 				first_name: firstname.value,
 				last_name: lastname.value,
-				// birthday: birthday.value,
-				// gender: gender.value,
-				password: password.value
+				birthday: birthday.value,
+				gender: gender.value,
+				password: password.value,
+				phoneNumber: phoneNumber.value
 			}
 		)
 		console.log(response.data)
