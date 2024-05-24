@@ -69,7 +69,7 @@
 							required
 						/>
 					</div>
-					<!-- <div class="text-field">
+					<div class="text-field">
 						<label for="birthday">Birthday</label>
 						<input
 							id="birthday"
@@ -87,7 +87,7 @@
 							<option value="female">Female</option>
 							<option value="other">Khác</option>
 						</select>
-					</div> -->
+					</div>
 					<button class="my-form__button" type="submit">Sign up</button>
 					<div class="my-form__actions">
 						<div class="my-form__row">
@@ -166,17 +166,11 @@ const register = async () => {
 	box-sizing: border-box;
 }
 
-*::selection {
-	background-color: var(--primary-light);
-}
-
 .form-welcome-row {
 	margin-bottom: 1rem;
 }
 
 .form-welcome-row h1 {
-	color: var(--text);
-	// text-align: center;
 	font-size: 3rem;
 	line-height: 2rem;
 	font-weight: bold;
@@ -185,24 +179,9 @@ const register = async () => {
 }
 
 .form-welcome-row h2 {
-	color: var(--text-gray);
+	color: gray;
 	font-size: 1.5rem;
 	font-weight: normal;
-}
-
-.divider {
-	display: flex;
-	flex-direction: row;
-	color: var(--secondary);
-	gap: 1rem;
-	align-items: center;
-}
-
-.divider-line {
-	width: 100%;
-	height: 1px;
-	background-color: var(--secondary);
-	opacity: 0.2;
 }
 
 .form-wrapper {
@@ -218,8 +197,6 @@ const register = async () => {
 	justify-content: center;
 	align-items: center;
 	padding: 0 2rem;
-	background-color: var(--main-side-background);
-	box-shadow: rgba(99, 99, 99, 0.1) 3px 2px 2px -1px;
 }
 .my-form {
 	display: flex;
@@ -232,11 +209,11 @@ const register = async () => {
 }
 
 .my-form__button {
-	background-color: var(--primary);
-	border: 1px solid var(--primary-light);
+	font-weight: bold;
+	background-color: black;
 	color: white;
 	white-space: nowrap;
-	border: none;
+	border: 2px solid black;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -251,34 +228,37 @@ const register = async () => {
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 	transition: all 0.3s ease;
 }
-
+.my-form__button:hover {
+	background-color: white;
+	color: black;
+}
 .my-form:invalid .my-form__button {
 	pointer-events: none;
-	background-color: rgb(3, 101, 47);
-	border: 1px solid var(--primary-light);
 }
 
 .my-form__actions {
+	font-size: larger;
 	display: flex;
 	flex-direction: column;
+	align-self: center;
 	color: var(--secondary);
 	gap: 1rem;
-	margin-top: 0.5rem;
 }
 
 .my-form__actions a {
-	color: var(--text);
+	color: var(--secondary);
+	font-weight: 600;
+	text-decoration: none;
 }
 
 .my-form__actions a:hover {
-	color: var(--text-gray);
 	text-decoration: underline;
 }
 
 .my-form__row {
 	display: flex;
-	justify-content: center;
-	gap: 1rem;
+	gap: 0.5rem;
+	justify-content: space-between;
 }
 
 .text-field {
@@ -315,7 +295,7 @@ const register = async () => {
 }
 
 .text-field label {
-	color: var(--text-gray);
+	color: black;
 }
 
 .text-field input:user-invalid {
@@ -340,55 +320,6 @@ const register = async () => {
 	box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 4px 0px;
 }
 
-/* aside */
-.info-side {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 0 3rem;
-}
-
-.info-side .blockquote-wrapper {
-	gap: 1rem;
-	position: relative;
-}
-
-.info-side .blockquote-wrapper blockquote {
-	margin-bottom: 1rem;
-	max-width: 30rem;
-	width: 100%;
-	font-size: 1.25rem;
-	line-height: 2.25rem;
-}
-
-.info-side .blockquote-wrapper blockquote::before {
-	content: open-quote;
-	font-size: 4rem;
-	line-height: 0;
-	margin-right: 0.5rem;
-	position: absolute;
-	left: -1.5rem;
-}
-
-.info-side .author {
-	display: flex;
-	flex-direction: row;
-	gap: 0.75rem;
-	align-items: center;
-}
-
-.info-side .author img {
-	border-radius: 50%;
-	width: 3rem;
-	height: 3rem;
-}
-
-.info-side .author-name {
-	font-size: 1.125rem;
-	line-height: 1.75rem;
-	font-weight: 600;
-	color: var(--text-gray);
-}
 .text-field-row {
 	display: flex;
 	gap: 1rem; /* Đặt khoảng cách giữa các trường nhập liệu */
@@ -398,17 +329,7 @@ const register = async () => {
 	flex: 1; /* Mỗi trường nhập liệu chiếm phần bằng nhau của hàng */
 }
 
-@media (max-width: 720px) {
-	.form-wrapper {
-		grid-template-columns: 1fr;
-		height: 100vh;
-	}
-
-	.info-side {
-		display: none;
-	}
-}
-.fication {
+.notification {
 	position: absolute;
 	width: max-content;
 	left: 0;
@@ -417,9 +338,9 @@ const register = async () => {
 	margin-left: auto;
 	margin-right: auto;
 	border-radius: 0.375rem;
-	background-color: var(--notification-background);
-	color: var(--notification-primary);
-	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+	background-color: black;
+	color: white;
+	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
 	transform: translateY(1.875rem);
 	opacity: 0;
 	visibility: hidden;
