@@ -3,18 +3,28 @@
 		<div class="icon-bar d-flex flex-column justify-content-between">
 			<div>
 				<button
-					:class="{ active: store.activeSidebarComponent.valueOf === 'home' }"
-					@click="setActiveComponent('home')"
-				>
-					<FontAwesomeIcon :icon="faHome" />
-				</button>
-				<button
 					:class="{
 						active: store.activeSidebarComponent.valueOf === 'messages'
 					}"
 					@click="setActiveComponent('messages')"
 				>
 					<FontAwesomeIcon :icon="faEnvelope" />
+				</button>
+				<button
+					:class="{
+						active: store.activeSidebarComponent.valueOf === 'Contact'
+					}"
+					@click="setActiveComponent('Contact')"
+				>
+					<FontAwesomeIcon :icon="faAddressBook" />
+				</button>
+				<button
+					:class="{
+						active: store.activeSidebarComponent.valueOf === 'AddFriend'
+					}"
+					@click="setActiveComponent('AddFriend')"
+				>
+					<FontAwesomeIcon :icon="faUserPlus" />
 				</button>
 			</div>
 			<div>
@@ -37,16 +47,20 @@
 import { useRouter } from 'vue-router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
-	faHome,
+	faSearch,
 	faEnvelope,
 	faGear,
 	faUser,
-	faSignOut
+	faSignOut,
+	faAddressBook,
+	faUserPlus
 } from '@fortawesome/free-solid-svg-icons'
-import { ref, computed } from 'vue'
+import { ref, computed, watchEffect } from 'vue'
 import { useStore } from '@/stores/store.js'
 import { useAuthStore } from '@/stores/auth.js'
 import MessageBar from './MessageBar.vue'
+import Contact from './Contact.vue'
+import Addfriend from './AddFriend.vue'
 
 const store = useStore()
 const auth = useAuthStore()
@@ -61,8 +75,10 @@ const setActiveComponent = component => {
 const activeComponent = computed(() => {
 	if (store.activeSidebarComponent === 'messages') {
 		return MessageBar
-	} else if (store.activeSidebarComponent === 'home') {
-		return Home
+	} else if (store.activeSidebarComponent === 'Contact') {
+		return Contact
+	} else if (store.activeSidebarComponent === 'AddFriend') {
+		return Addfriend
 	}
 })
 
@@ -70,6 +86,9 @@ const logout = () => {
 	auth.logout()
 	router.push('/login')
 }
+const props = defineProps({
+	newMessage: Object
+})
 </script>
 
 <style lang="scss" scoped>
