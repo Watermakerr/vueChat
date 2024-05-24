@@ -4,7 +4,7 @@ import { defineStore } from 'pinia'
 export const useAuthStore = defineStore('auth', () => {
 	const accessToken = ref(localStorage.getItem('accessToken') || '')
 	const refreshToken = ref(localStorage.getItem('refreshToken') || '')
-	const isAuthenticated = ref(!!accessToken.value)
+	const isAuthenticated = ref(false)
 	const currentUserId = ref(
 		Number(localStorage.getItem('currentUserId')) || null
 	)

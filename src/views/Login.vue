@@ -23,6 +23,9 @@ const login = async () => {
 			response.data.refresh_token,
 			response.data.user_id
 		)
+		console.log(response.data)
+		console.log(store.accessToken)
+		console.log(store.isAuthenticated)
 		router.push('/')
 	} catch (error) {
 		console.error(error)
@@ -76,7 +79,7 @@ const login = async () => {
 					v-model="password"
 					required
 				/>
-				<label for="password" class="input__label"> Password </label>
+				<label for="password" class="input__label"> Password: </label>
 				<svg
 					class="input__icon"
 					xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +106,9 @@ const login = async () => {
 			<div class="my-form__actions">
 				<div class="my-form__row">
 					<span>Don't have an account?</span>
-					<a href="SignupView.vue" title="Create Account"> Create account </a>
+					<router-link to="/signup" title="Create Account">
+						Create account
+					</router-link>
 				</div>
 			</div>
 		</form>
@@ -111,18 +116,6 @@ const login = async () => {
 </template>
 
 <style scoped>
-:root {
-	--primary: #81808e;
-	--primary-dark: #c9c6d0;
-	--primary-light: #5da8ff;
-	--secondary: #1d1d1d;
-	--social-background: #e9e9e9;
-	--social-background-hover: #dddddd;
-	--text: #1f2346;
-	--white: #ffffff;
-	--violet: #5c2a88;
-}
-
 * {
 	margin: 0;
 	padding: 0;
@@ -131,20 +124,24 @@ const login = async () => {
 
 .body {
 	font-size: 20px;
-	font-family: 'Work Sans', sans-serif;
+	font-family:
+		system-ui,
+		-apple-system,
+		BlinkMacSystemFont,
+		'Segoe UI',
+		Roboto,
+		Oxygen,
+		Ubuntu,
+		Cantarell,
+		'Open Sans',
+		'Helvetica Neue',
+		sans-serif;
 	height: 100vh;
 	padding: 1rem;
 	display: flex;
 	height: 100vh;
 	justify-content: center;
 	align-items: center;
-	background: var(--white);
-	background: -webkit-linear-gradient(
-		to right,
-		var(--violet),
-		var(--primary-dark)
-	);
-	background: linear-gradient(to right, var(--violet), var(--primary-dark));
 }
 .login-welcome-row {
 	margin-bottom: 1rem;
@@ -161,7 +158,6 @@ const login = async () => {
 	justify-content: start;
 	position: relative;
 	gap: 1rem;
-	background-color: var(--white);
 	width: 100%;
 	max-width: 32rem;
 	padding: 3rem 2rem;
@@ -171,32 +167,26 @@ const login = async () => {
 }
 
 .my-form__button {
-	background-color: var(--primary);
+	background-color: black;
 	color: white;
-	white-space: nowrap;
-	border: none;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-top: 1rem;
-	line-height: 3.125rem;
-	outline: none;
+	margin-top: 1.5rem;
+	line-height: 2.75rem;
 	font-size: 1.125rem;
-	letter-spacing: 0.025rem;
-	text-decoration: none;
 	cursor: pointer;
-	font-weight: 800;
-	min-height: 3.125rem;
 	width: 100%;
-	border-radius: 10rem;
+	border-radius: 0.5rem;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 	transition: all 0.3s ease;
-	-webkit-transition: all 0.3s ease;
+	border: 2px solid black;
+	font-weight: bold;
 }
 .my-form__button:hover {
-	background-color: var(--primary-dark);
+	background-color: white;
+	color: black;
 }
-
-/*? input wrapper */
 .input__wrapper {
 	position: relative;
 	padding: 0.9375rem 0 0;
@@ -205,7 +195,6 @@ const login = async () => {
 
 .input__field {
 	font-size: 1.5rem;
-	color: var(--text);
 	padding: 0.375rem 0;
 	padding-right: 2rem;
 	padding-bottom: 0.5rem;
@@ -216,7 +205,7 @@ const login = async () => {
 	width: 100%;
 	vertical-align: middle;
 	padding-bottom: 0.7rem;
-	border-bottom: 3px solid var(--secondary);
+	border-bottom: 3px solid black;
 	background: transparent;
 	transition: border-color 0.2s;
 }
@@ -231,7 +220,7 @@ const login = async () => {
 
 .input__field:placeholder-shown ~ .input__label {
 	cursor: text;
-	color: var(--text);
+	color: black;
 	top: 0.8rem;
 	font-size: 1.2rem;
 }
@@ -242,20 +231,20 @@ const login = async () => {
 	top: -0.8rem;
 	display: block;
 	font-size: 1.2rem;
-	color: var(--text);
+	color: black;
 	transition: 0.3s;
 }
 
 .input__field:focus ~ .input__label {
-	color: var(--primary);
+	color: grey;
 }
 
 .input__field:focus {
-	border-bottom: 3px solid var(--primary);
+	border-bottom: 3px solid grey;
 }
 
 .input__field:focus ~ svg {
-	stroke: var(--primary);
+	stroke: grey;
 }
 
 .input__icon {
