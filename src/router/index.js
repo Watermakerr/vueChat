@@ -7,6 +7,7 @@ import Login from '@/views/Login.vue'
 import Profile from '@/views/Profile.vue'
 import ChangePassword from '@/views/ChangePassword.vue'
 import ChangeInfomation from '@/views/ChangeInfo.vue'
+import ProfileFriend from '@/views/ProfileFriend.vue'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,6 +31,11 @@ const router = createRouter({
 			path: '/profile',
 			name: 'profile',
 			component: Profile
+		},
+		{
+			path: '/profileFriend',
+			name: 'profileFriend',
+			component: ProfileFriend
 		},
 		{
 			path: '/changePassword',

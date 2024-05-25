@@ -1,150 +1,11 @@
 <template>
 	<div class="friend-list">
-		<div class="friend-card card" v-for="friend in friends" :key="friend.id">
-			<div class="row g-0 align-items-start">
-				<div class="col-md-2">
-					<img
-						:src="ProfileImg"
-						class="profile-img img-fluid rounded-start"
-						alt="Profile image"
-					/>
-				</div>
-				<div class="col-md-8">
-					<div class="card-body">
-						<h5>{{ friend.username }}</h5>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="friend-list">
-		<div class="friend-card card" v-for="friend in friends" :key="friend.id">
-			<div class="row g-0 align-items-start">
-				<div class="col-md-2">
-					<img
-						:src="ProfileImg"
-						class="profile-img img-fluid rounded-start"
-						alt="Profile image"
-					/>
-				</div>
-				<div class="col-md-8">
-					<div class="card-body">
-						<h5>{{ friend.username }}</h5>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="friend-list">
-		<div class="friend-card card" v-for="friend in friends" :key="friend.id">
-			<div class="row g-0 align-items-start">
-				<div class="col-md-2">
-					<img
-						:src="ProfileImg"
-						class="profile-img img-fluid rounded-start"
-						alt="Profile image"
-					/>
-				</div>
-				<div class="col-md-8">
-					<div class="card-body">
-						<h5>{{ friend.username }}</h5>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="friend-list">
-		<div class="friend-card card" v-for="friend in friends" :key="friend.id">
-			<div class="row g-0 align-items-start">
-				<div class="col-md-2">
-					<img
-						:src="ProfileImg"
-						class="profile-img img-fluid rounded-start"
-						alt="Profile image"
-					/>
-				</div>
-				<div class="col-md-8">
-					<div class="card-body">
-						<h5>{{ friend.username }}</h5>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="friend-list">
-		<div class="friend-card card" v-for="friend in friends" :key="friend.id">
-			<div class="row g-0 align-items-start">
-				<div class="col-md-2">
-					<img
-						:src="ProfileImg"
-						class="profile-img img-fluid rounded-start"
-						alt="Profile image"
-					/>
-				</div>
-				<div class="col-md-8">
-					<div class="card-body">
-						<h5>{{ friend.username }}</h5>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="friend-list">
-		<div class="friend-card card" v-for="friend in friends" :key="friend.id">
-			<div class="row g-0 align-items-start">
-				<div class="col-md-2">
-					<img
-						:src="ProfileImg"
-						class="profile-img img-fluid rounded-start"
-						alt="Profile image"
-					/>
-				</div>
-				<div class="col-md-8">
-					<div class="card-body">
-						<h5>{{ friend.username }}</h5>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="friend-list">
-		<div class="friend-card card" v-for="friend in friends" :key="friend.id">
-			<div class="row g-0 align-items-start">
-				<div class="col-md-2">
-					<img
-						:src="ProfileImg"
-						class="profile-img img-fluid rounded-start"
-						alt="Profile image"
-					/>
-				</div>
-				<div class="col-md-8">
-					<div class="card-body">
-						<h5>{{ friend.username }}</h5>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="friend-list">
-		<div class="friend-card card" v-for="friend in friends" :key="friend.id">
-			<div class="row g-0 align-items-start">
-				<div class="col-md-2">
-					<img
-						:src="ProfileImg"
-						class="profile-img img-fluid rounded-start"
-						alt="Profile image"
-					/>
-				</div>
-				<div class="col-md-8">
-					<div class="card-body">
-						<h5>{{ friend.username }}</h5>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="friend-list">
-		<div class="friend-card card" v-for="friend in friends" :key="friend.id">
+		<div
+			class="friend-card card"
+			v-for="friend in friends"
+			:key="friend.id"
+			@click="displayFriend(friend)"
+		>
 			<div class="row g-0 align-items-start">
 				<div class="col-md-2">
 					<img
@@ -168,8 +29,10 @@ import { ref, onMounted } from 'vue'
 import ProfileImg from '@/assets/profile.jpg'
 import axiosInstance from '@/api/axios.js'
 import { useAuthStore } from '@/stores/auth'
+import { useStore } from '@/stores/store' // import your store
 
 const auth = useAuthStore()
+const store = useStore() // use your store
 
 let friends = ref([])
 
@@ -189,6 +52,12 @@ onMounted(() => {
 	}
 	fetchFriends()
 })
+
+const displayFriend = friend => {
+	console.log(friend)
+	store.setProfileId(friend.id) // set profile_id to the id of the clicked friend
+	console.log(store.profile_id)
+}
 </script>
 
 <style scoped>

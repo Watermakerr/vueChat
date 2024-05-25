@@ -19,51 +19,55 @@
 					<p class="info-text">Số điện thoại:</p>
 				</div>
 				<div class="column-large">
-					<p class="info-text">Nguyễn Văn A</p>
-					<p class="info-text">abcd9@</p>
-					<p class="info-text">01/01/2000</p>
-					<p class="info-text">Nam</p>
-					<p class="info-text">nguyenvana@gmail.com</p>
+					<p class="info-text">{{ user?.first_name }} {{ user?.last_name }}</p>
+					<p class="info-text">{{ user?.username }}</p>
+					<p class="info-text">{{ user?.birthDay }}</p>
+					<p class="info-text">{{ user?.gender === 0 ? 'Nam' : 'Nữ' }}</p>
+					<p class="info-text">{{ user?.email }}</p>
+					<p class="info-text">{{ user?.phone }}</p>
 				</div>
 			</div>
+			<div class="button">
+				<button class="card__btn">Thêm bạn</button>
+				<button class="card__btn">Nhắn tin</button>
+			</div>
+			<button class="close-btn" @click="closeProfileFriend">x</button>
 		</div>
 	</div>
 </template>
 
 <script setup>
-// import { ref, onMounted } from 'vue'
-// import axios from 'axios'
-// import { useAuthStore } from '@/stores/auth'
-// import { useStore } from '@/stores/store'
-// const store = useStore()
+import { ref, onMounted } from 'vue'
+import axiosInstance from '@/api/axios.js'
+import { useAuthStore } from '@/stores/auth'
+import { useStore } from '@/stores/store'
+const store = useStore()
+const auth = useAuthStore()
 
-// const password = ref('')
-// const firstname = ref('')
-// const lastname = ref('')
-// const birthday = ref('')
-// const gender = ref('')
-// const email = ref('')
-// const phoneNumber = ref('')
-// const user = ref(null)
-// const user_id = ref() // Thay thế bằng ID người dùng thực tế hoặc nhận từ route hoặc props
-// const closeProfile = () => {
-// 	store.goToProfile = false
-// }
+const user = ref(null)
 
-// const fetchUserProfile = async () => {
-// 	try {
-// 		const response = await axios.get(
-// 			`http://127.0.0.1:8000/api/v1/user/profile/${user_id}`
-// 		)
-// 		user.value = response.data // Đảm bảo rằng response.data có cấu trúc { first_name, last_name, email }
-// 	} catch (error) {
-// 		console.error('Không thể lấy thông tin hồ sơ người dùng:', error)
-// 	}
-// }
+onMounted(() => {
+	const fetchUserProfile = async () => {
+		try {
+			const response = await axiosInstance.get(
+				`/api/v1/user/profile/${store.profile_id}`,
+				{
+					headers: {
+						Authorization: `Bearer ${auth.accessToken}`
+					}
+				}
+			)
+			user.value = response.data
+		} catch (error) {
+			console.error(error)
+		}
+	}
+	fetchUserProfile()
+})
 
-// onMounted(() => {
-// 	fetchUserProfile()
-// })
+const closeProfileFriend = () => {
+	store.setProfileId(null)
+}
 </script>
 
 <style>
@@ -72,7 +76,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 300vh;
+	right: 0;
 }
 
 .background-overlay {
@@ -85,7 +89,6 @@
 
 .card-client {
 	position: relative;
-	/* margin-left: 75vh; */
 	background: black;
 	width: 30rem;
 	padding: 25px 20px;
@@ -150,16 +153,27 @@
 	font-weight: bolder;
 	margin-bottom: 10px;
 }
-
-.close-btn {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	width: 30px;
-	height: 30px;
+.button {
+	margin-left: 65px;
+	margin-top: 30px;
 }
-.close-btn:hover {
-	background-color: black;
-	color: #fff;
+.card__btn {
+	margin-left: 30px;
+	width: 100px;
+	height: 37px;
+	border: 2px solid black;
+	border-radius: 4px;
+	font-weight: 700;
+	font-size: 15px;
+	color: black;
+	background: white;
+	transition: all 0.3s;
+}
+
+.card__btn:hover {
+	background: black;
+	color: white;
+	border: 2px solid white;
+	border-radius: 4px;
 }
 </style>

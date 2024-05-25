@@ -28,11 +28,13 @@
 				</button>
 			</div>
 			<div>
-				<button @click="login">
+				<button>
 					<FontAwesomeIcon :icon="faGear" />
 				</button>
 
-				<button><FontAwesomeIcon :icon="faUser" /></button>
+				<button>
+					<FontAwesomeIcon :icon="faUser" @click="profile" />
+				</button>
 
 				<button><FontAwesomeIcon :icon="faSignOut" @click="logout" /></button>
 			</div>
@@ -81,6 +83,9 @@ const activeComponent = computed(() => {
 		return Addfriend
 	}
 })
+const profile = () => {
+	router.push('/profile')
+}
 
 const logout = () => {
 	auth.logout()
