@@ -33,7 +33,7 @@
 				</button>
 
 				<button>
-					<FontAwesomeIcon :icon="faUser" @click="profile" />
+					<FontAwesomeIcon :icon="faUser" @click="profile()" />
 				</button>
 
 				<button><FontAwesomeIcon :icon="faSignOut" @click="logout" /></button>

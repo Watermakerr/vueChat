@@ -1,6 +1,5 @@
 <template>
 	<div class="container">
-		<div class="background-overlay"></div>
 		<div class="card-client">
 			<div class="user-picture">
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
@@ -77,14 +76,7 @@ const closeProfileFriend = () => {
 	justify-content: center;
 	align-items: center;
 	right: 0;
-}
-
-.background-overlay {
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-	z-index: 1;
+	width: 400vh;
 }
 
 .card-client {
