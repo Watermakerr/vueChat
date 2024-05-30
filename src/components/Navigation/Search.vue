@@ -1,0 +1,36 @@
+<template>
+	<SearchBar v-model="phoneNumber" style="width: 30vw" />
+</template>
+
+<script setup>
+import { ref, watch } from 'vue'
+import axiosInstance from '@/api/axios.js'
+import SearchBar from '@/components/partial/SearchBar.vue'
+import { useAuthStore } from '@/stores/auth'
+
+const auth = useAuthStore()
+
+const phoneNumber = ref('')
+
+watch(phoneNumber, async (newVal, oldVal) => {
+	console.log(`Phone number changed to: ${newVal}`) // print the new phone number
+	if (newVal.length > 9) {
+		console.log('Making API request') // print a message before making the API request
+		try {
+			const response = await axiosInstance.get(
+				`/api/v1/user/search-profile?phone=${newVal}`,
+				{
+					headers: {
+						Authorization: `Bearer ${auth.accessToken}`
+					}
+				}
+			)
+			console.log(response.data)
+		} catch (error) {
+			console.error(error)
+		}
+	}
+})
+</script>
+
+<style lang="scss" scoped></style>

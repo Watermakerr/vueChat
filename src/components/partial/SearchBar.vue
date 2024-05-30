@@ -2,6 +2,7 @@
 	<form class="form">
 		<label for="search">
 			<input
+				v-model="value"
 				autocomplete="off"
 				placeholder="search your chats"
 				id="search"
@@ -54,7 +55,24 @@
 	</form>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref, watch, defineProps, defineEmits } from 'vue'
+
+const props = defineProps({
+	modelValue: {
+		type: String,
+		default: ''
+	}
+})
+
+let value = ref(props.modelValue)
+
+const emit = defineEmits(['update:modelValue'])
+
+watch(value, newValue => {
+	emit('update:modelValue', newValue)
+})
+</script>
 
 <style lang="scss" scoped>
 /* From uiverse.io by @satyamchaudharydev */

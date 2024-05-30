@@ -26,6 +26,14 @@
 				>
 					<FontAwesomeIcon :icon="faUserPlus" />
 				</button>
+				<button
+					:class="{
+						active: store.activeSidebarComponent.valueOf === 'Search'
+					}"
+					@click="setActiveComponent('Search')"
+				>
+					<FontAwesomeIcon :icon="faSearch" />
+				</button>
 			</div>
 			<div>
 				<button>
@@ -63,6 +71,7 @@ import { useAuthStore } from '@/stores/auth.js'
 import MessageBar from './MessageBar.vue'
 import Contact from './Contact.vue'
 import Addfriend from './AddFriend.vue'
+import Search from './Search.vue'
 
 const store = useStore()
 const auth = useAuthStore()
@@ -81,10 +90,12 @@ const activeComponent = computed(() => {
 		return Contact
 	} else if (store.activeSidebarComponent === 'AddFriend') {
 		return Addfriend
+	} else if (store.activeSidebarComponent === 'Search') {
+		return Search
 	}
 })
 const profile = () => {
-	router.push('/profile')
+	store.setProfileId(auth.currentUserId)
 }
 
 const logout = () => {
@@ -98,7 +109,7 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .icon-bar {
-	width: 90px;
+	width: 60px; /* Adjust as needed */
 	background-color: #555;
 	height: 100vh;
 }
@@ -106,10 +117,10 @@ const props = defineProps({
 .icon-bar button {
 	display: block;
 	text-align: center;
-	padding: 16px;
+	padding: 8px; /* Adjust as needed */
 	transition: all 0.3s ease;
 	color: white;
-	font-size: 36px;
+	font-size: 24px; /* Adjust as needed */
 	background: none;
 	border: none;
 	width: 100%;
@@ -124,7 +135,7 @@ const props = defineProps({
 }
 
 .content {
-	width: calc(100% - 90px);
+	width: calc(100% - 60px); /* Adjust as needed */
 	height: 100vh;
 }
 </style>

@@ -14,7 +14,7 @@ import { useStore } from '@/stores/store'
 import LeftBar from '@/components/Navigation/LeftBar.vue'
 import NoChatSelected from '@/components/Chat/NoChatSelected.vue'
 import ChatWindow from '@/components/Chat/ChatWindow.vue'
-import ProfileFriend from '@/views/ProfileFriend.vue'
+import ProfileFriend from '@/components/partial/ProfileFriend.vue'
 
 const store = useStore()
 

@@ -59,7 +59,8 @@ img {
 }
 .close-btn {
 	position: absolute;
-	top: 50%;
+	align-items: center;
+	top: 20%;
 	right: 2%;
 	// transform: translateY(-50%);
 	border: 1px solid #000; /* Add this line */
