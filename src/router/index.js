@@ -4,7 +4,6 @@ import axiosInstance from '@/api/axios.js'
 import SignupView from '@/views/SignupView.vue'
 import ChatView from '@/views/ChatView.vue'
 import Login from '@/views/Login.vue'
-import Profile from '@/views/Profile.vue'
 import ChangePassword from '@/views/ChangePassword.vue'
 import ChangeInfomation from '@/views/ChangeInfo.vue'
 import ProfileFriend from '@/components/partial/ProfileFriend.vue'
@@ -26,11 +25,6 @@ const router = createRouter({
 			path: '/signup',
 			name: 'signup',
 			component: SignupView
-		},
-		{
-			path: '/profile',
-			name: 'profile',
-			component: Profile
 		},
 		{
 			path: '/profileFriend',

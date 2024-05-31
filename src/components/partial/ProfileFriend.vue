@@ -20,15 +20,21 @@
 				<div class="column-large">
 					<p class="info-text">{{ user?.first_name }} {{ user?.last_name }}</p>
 					<p class="info-text">{{ user?.username }}</p>
-					<p class="info-text">{{ user?.birthDay }}</p>
+					<p class="info-text">{{ user?.birth_date }}</p>
 					<p class="info-text">{{ user?.gender === 0 ? 'Nam' : 'Nữ' }}</p>
 					<p class="info-text">{{ user?.email }}</p>
-					<p class="info-text">{{ user?.phone }}</p>
+					<p class="info-text">{{ user?.phoneNumber }}</p>
 				</div>
 			</div>
-			<div class="button">
-				<button class="card__btn">Thêm bạn</button>
-				<button class="card__btn">Nhắn tin</button>
+			<div v-if="store.profile_id !== auth.currentUserId" class="button">
+				<button
+					v-if="user && user.is_friend === false"
+					class="card__btn"
+					@click="addFriend"
+				>
+					Thêm bạn
+				</button>
+				<button class="card__btn" @click="message">Nhắn tin</button>
 			</div>
 			<button class="close-btn" @click="closeProfileFriend">x</button>
 		</div>
@@ -57,8 +63,20 @@ onMounted(() => {
 				}
 			)
 			user.value = response.data
+			console.log(response.data)
 		} catch (error) {
 			console.error(error)
+			try {
+				const response = await axiosInstance.post('/api/v1/user/refresh/', {
+					refresh: auth.refreshToken
+				})
+				auth.setAcesstoken(response.data.access) // update the access token
+				// Retry fetching user profile after refreshing the token
+				fetchUserProfile()
+			} catch (error) {
+				// log out the user
+				auth.logout()
+			}
 		}
 	}
 	fetchUserProfile()
@@ -66,6 +84,29 @@ onMounted(() => {
 
 const closeProfileFriend = () => {
 	store.setProfileId(null)
+}
+const message = () => {
+	store.setActiveConversation(store.profile_id)
+	closeProfileFriend()
+}
+
+const addFriend = async () => {
+	try {
+		const response = await axiosInstance.post(
+			`/api/v1/user/send-friend-request/`,
+			{
+				id: user.value.id // include the user's ID in the request body
+			},
+			{
+				headers: {
+					Authorization: `Bearer ${auth.accessToken}`
+				}
+			}
+		)
+		console.log(response.data)
+	} catch (error) {
+		console.error(error)
+	}
 }
 </script>
 

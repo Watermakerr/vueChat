@@ -9,12 +9,16 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useStore } from '@/stores/store'
 import LeftBar from '@/components/Navigation/LeftBar.vue'
 import NoChatSelected from '@/components/Chat/NoChatSelected.vue'
 import ChatWindow from '@/components/Chat/ChatWindow.vue'
 import ProfileFriend from '@/components/partial/ProfileFriend.vue'
+import { useAuthStore } from '@/stores/auth'
+import axiosInstance from '@/api/axios.js'
+
+const auth = useAuthStore()
 
 const store = useStore()
 
@@ -38,6 +42,26 @@ const updateLeftBar = message => {
 	// Emit the 'message-sent' event with the sent message
 	emit('message-sent', message)
 }
+
+onMounted(async () => {
+	console.log(auth.refreshToken)
+	console.log('here')
+	try {
+		await axiosInstance.post('/api/v1/user/token/', {
+			token: auth.accessToken
+		})
+	} catch (error) {
+		try {
+			const response = await axiosInstance.post('/api/v1/user/refresh/', {
+				refresh: auth.refreshToken
+			})
+			auth.setAcesstoken(response.data.access) // update the access token
+		} catch (error) {
+			// log out the user
+			auth.logout()
+		}
+	}
+})
 </script>
 
 <style lang="scss" scoped>

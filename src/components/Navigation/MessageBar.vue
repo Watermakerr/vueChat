@@ -51,6 +51,17 @@ const recentChats = async () => {
 			.sort((a, b) => b.last_message.id - a.last_message.id)
 	} catch (error) {
 		console.error(error)
+		try {
+			const response = await axiosInstance.post('/api/v1/user/refresh/', {
+				refresh: auth.refreshToken
+			})
+			auth.setAcesstoken(response.data.access) // update the access token
+			// Retry fetching recent chats after refreshing the token
+			recentChats()
+		} catch (error) {
+			// log out the user
+			auth.logout()
+		}
 	}
 }
 

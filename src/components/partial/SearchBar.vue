@@ -4,7 +4,7 @@
 			<input
 				v-model="value"
 				autocomplete="off"
-				placeholder="search your chats"
+				placeholder="search your friend phone number"
 				id="search"
 				type="text"
 			/>

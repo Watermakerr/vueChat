@@ -27,12 +27,17 @@ export const useAuthStore = defineStore('auth', () => {
 		localStorage.removeItem('refreshToken')
 		localStorage.removeItem('currentUserId')
 	}
+	function setAcesstoken(access) {
+		accessToken.value = access
+		localStorage.setItem('accessToken', access)
+	}
 
 	return {
 		accessToken,
 		refreshToken,
 		isAuthenticated,
 		currentUserId,
+		setAcesstoken,
 		login,
 		logout
 	}

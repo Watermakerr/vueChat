@@ -1,16 +1,21 @@
 <template>
-	<SearchBar v-model="phoneNumber" style="width: 30vw" />
+	<div>
+		<SearchBar v-model="phoneNumber" style="width: 30vw" />
+		<SearchFriend :friends="searchResults.users" />
+	</div>
 </template>
 
 <script setup>
 import { ref, watch } from 'vue'
 import axiosInstance from '@/api/axios.js'
 import SearchBar from '@/components/partial/SearchBar.vue'
+import SearchFriend from '@/components/partial/SearchFriend.vue'
 import { useAuthStore } from '@/stores/auth'
 
 const auth = useAuthStore()
 
 const phoneNumber = ref('')
+const searchResults = ref([])
 
 watch(phoneNumber, async (newVal, oldVal) => {
 	console.log(`Phone number changed to: ${newVal}`) // print the new phone number
@@ -25,6 +30,7 @@ watch(phoneNumber, async (newVal, oldVal) => {
 					}
 				}
 			)
+			searchResults.value = response.data
 			console.log(response.data)
 		} catch (error) {
 			console.error(error)

@@ -1,6 +1,6 @@
 <template>
 	<div class="container1">
-		<SearchBar style="width: 30vw" />
+		<h1>Contact</h1>
 		<div class="friend-container">
 			<Friend class="friend1" />
 		</div>
@@ -8,7 +8,6 @@
 </template>
 
 <script setup>
-import SearchBar from '@/components/partial/SearchBar.vue'
 import Friend from '@/components/partial/Friend.vue'
 </script>
 
