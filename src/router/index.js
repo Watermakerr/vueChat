@@ -44,43 +44,23 @@ const router = createRouter({
 	]
 })
 
-// router.beforeEach(async (to, from, next) => {
-// 	const auth = useAuthStore()
-// 	console.log(auth.isAuthenticated)
+router.beforeEach((to, from, next) => {
+	const publicPages = ['login', 'signup']
+	const authRequired = !publicPages.includes(to.name)
 
-// 	if (to.name !== 'login' && to.name !== 'signup' && !auth.isAuthenticated) {
-// 		next({ name: 'login' })
-// 	} else if (
-// 		(to.name === 'login' || to.name === 'signup') &&
-// 		auth.isAuthenticated
-// 	) {
-// 		next({ name: 'home' })
-// 	} else if (auth.accessToken && !auth.isAuthenticated) {
-// 		try {
-// 			await axiosInstance.get('/api/v1/validate-token/', {
-// 				headers: { Authorization: `Bearer ${auth.accessToken}` }
-// 			})
-// 			next()
-// 		} catch (error) {
-// 			if (auth.refreshToken) {
-// 				try {
-// 					const response = await axiosInstance.post('/api/v1/refresh-token/', {
-// 						refresh: auth.refreshToken
-// 					})
-// 					auth.login(response.data.access, auth.refreshToken)
-// 					next()
-// 				} catch (error) {
-// 					auth.logout()
-// 					next({ name: 'login' })
-// 				}
-// 			} else {
-// 				auth.logout()
-// 				next({ name: 'login' })
-// 			}
-// 		}
-// 	} else {
-// 		next()
-// 	}
-// })
+	// Check if the user is authenticated
+	const token = localStorage.getItem('accessToken')
+	const isAuthenticated = token !== null
+
+	if (authRequired && !isAuthenticated) {
+		return next({ name: 'login' })
+	}
+
+	if (!authRequired && isAuthenticated) {
+		return next({ name: 'home' })
+	}
+
+	next()
+})
 
 export default router

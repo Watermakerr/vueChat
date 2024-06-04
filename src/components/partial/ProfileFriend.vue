@@ -46,6 +46,7 @@ import { ref, onMounted } from 'vue'
 import axiosInstance from '@/api/axios.js'
 import { useAuthStore } from '@/stores/auth'
 import { useStore } from '@/stores/store'
+
 const store = useStore()
 const auth = useAuthStore()
 
@@ -87,6 +88,8 @@ const closeProfileFriend = () => {
 }
 const message = () => {
 	store.setActiveConversation(store.profile_id)
+	store.setActiveProfile(`${user.value.first_name} ${user.value.last_name}`)
+
 	closeProfileFriend()
 }
 
@@ -111,6 +114,16 @@ const addFriend = async () => {
 </script>
 
 <style>
+/* Add your styles here */
+.button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 50px; /* Adjust this value as needed */
+	margin-top: 30px;
+	margin-left: 0px;
+}
+
 .container {
 	position: relative;
 	display: flex;
@@ -186,12 +199,8 @@ const addFriend = async () => {
 	font-weight: bolder;
 	margin-bottom: 10px;
 }
-.button {
-	margin-left: 65px;
-	margin-top: 30px;
-}
+
 .card__btn {
-	margin-left: 30px;
 	width: 100px;
 	height: 37px;
 	border: 2px solid black;
@@ -208,5 +217,20 @@ const addFriend = async () => {
 	color: white;
 	border: 2px solid white;
 	border-radius: 4px;
+}
+.close-btn {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background: none;
+	border: none;
+	font-size: 20px;
+	color: #fff;
+	cursor: pointer;
+	transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+	color: #ff0000; /* Change the color to red when hovered */
 }
 </style>
