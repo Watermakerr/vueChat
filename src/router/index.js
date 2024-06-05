@@ -7,6 +7,7 @@ import Login from '@/views/Login.vue'
 import ChangePassword from '@/views/ChangePassword.vue'
 import ChangeInfomation from '@/views/ChangeInfo.vue'
 import ProfileFriend from '@/components/partial/ProfileFriend.vue'
+import NotFound from '@/views/NotFound.vue'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -40,12 +41,17 @@ const router = createRouter({
 			path: '/changeInformation',
 			name: 'changeInfomation',
 			component: ChangeInfomation
+		},
+		{
+			path: '/:pathMatch(.*)*',
+			name: 'notFound',
+			component: NotFound
 		}
 	]
 })
 
 router.beforeEach((to, from, next) => {
-	const publicPages = ['login', 'signup']
+	const publicPages = ['login', 'signup', 'notFound']
 	const authRequired = !publicPages.includes(to.name)
 
 	// Check if the user is authenticated
