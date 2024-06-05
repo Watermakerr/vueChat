@@ -36,9 +36,27 @@
 				</button>
 			</div>
 			<div>
-				<button>
-					<FontAwesomeIcon :icon="faGear" />
-				</button>
+				<div class="settings-container">
+					<div
+						class="settings"
+						@mouseover="showSettings = true"
+						@mouseleave="showSettings = false"
+					>
+						<button class="settings-button">
+							<FontAwesomeIcon :icon="faGear" />
+						</button>
+						<transition name="slide">
+							<div v-show="showSettings" class="submenu" style="width: 62.5px">
+								<button
+									@click="changePassword"
+									style="font-size: 14px; padding: 0"
+								>
+									Change Password
+								</button>
+							</div>
+						</transition>
+					</div>
+				</div>
 
 				<button>
 					<FontAwesomeIcon :icon="faUser" @click="profile()" />
@@ -65,7 +83,7 @@ import {
 	faAddressBook,
 	faUserPlus
 } from '@fortawesome/free-solid-svg-icons'
-import { ref, computed, watchEffect } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useStore } from '@/stores/store.js'
 import { useAuthStore } from '@/stores/auth.js'
 import MessageBar from './MessageBar.vue'
@@ -102,12 +120,63 @@ const logout = () => {
 	auth.logout()
 	router.push('/login')
 }
-const props = defineProps({
-	newMessage: Object
-})
+let showSettings = ref(false)
+const changePassword = () => {
+	router.push('/changePassword')
+}
 </script>
 
 <style lang="scss" scoped>
+.settings-container {
+	position: relative;
+}
+.settings {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
+.settings-button {
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+.submenu {
+	position: absolute;
+	left: 100%;
+	top: 0;
+	background-color: #333;
+	font-size: 20px; /* make font size smaller */
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	padding: 12px 16px;
+	z-index: 1;
+}
+.submenu button {
+	padding: 8px 12px; /* reduce padding to make button smaller */
+	display: flex; /* center content and make it fill the button */
+	align-items: center;
+	justify-content: center;
+	border: none;
+	cursor: pointer;
+	background-color: transparent; /* make button background transparent */
+	color: #fff; /* change font color to white */
+	width: 100%; /* make content fill the button */
+}
+
+.submenu button:hover {
+	background-color: #555; /* change background color to a slightly lighter grey on hover */
+	color: #fff; /* keep font color white on hover */
+}
+.slide-enter-active,
+.slide-leave-active {
+	transition: all 0.3s ease;
+}
+.slide-enter,
+.slide-leave-to {
+	transform: translateX(100%);
+}
 .icon-bar {
 	width: 60px; /* Adjust as needed */
 	background-color: #555;
