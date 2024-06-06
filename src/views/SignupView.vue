@@ -4,47 +4,48 @@
 			<main class="form-side">
 				<form class="my-form" @submit.prevent="register">
 					<div class="form-welcome-row">
-						<h1>Sign up</h1>
-						<h2>Create a new account</h2>
+						<h1>Đăng kí</h1>
+						<h2>Tạo một tài khoản mới</h2>
 					</div>
 					<div class="text-field-row">
 						<div class="text-field">
-							<label for="firstname">First name</label>
+							<label for="firstname">Họ</label>
 							<input
 								id="firstname"
 								type="text"
 								name="firstname"
-								placeholder="First name"
+								placeholder="VD: Nguyễn Văn"
 								v-model="firstname"
 								required
 							/>
 						</div>
 						<div class="text-field">
-							<label for="lastname">Last name</label>
+							<label for="lastname">Tên</label>
 							<input
 								id="lastname"
 								type="text"
 								name="lastname"
-								placeholder="Last name"
+								placeholder="VD: A"
 								v-model="lastname"
 								required
 							/>
 						</div>
 					</div>
 					<div class="text-field">
-						<label for="username">Username</label>
+						<label for="username">Tên đăng nhập</label>
 						<input
 							type="text"
 							id="username"
 							name="username"
 							autocomplete="off"
-							placeholder="Username"
+							placeholder="VD: nguyenvana123"
 							v-model="username"
 							@input="checkUsername"
 							required
 						/>
 						<div v-if="!isUsernameValid" class="error-message">
-							Username must contain at least one letter and one number
+							Tên đăng nhập bao gồm ít nhất một chữ cái, một số và một ký tự đặc
+							biệt
 						</div>
 					</div>
 					<div class="text-field">
@@ -54,13 +55,13 @@
 							id="email"
 							name="email"
 							autocomplete="off"
-							placeholder="Email"
+							placeholder="VD: nguyena@gmail.com"
 							v-model="email"
 							required
 						/>
 					</div>
 					<div class="text-field">
-						<label for="password">Password</label>
+						<label for="password">Mật khẩu</label>
 						<input
 							id="password"
 							type="password"
@@ -70,18 +71,18 @@
 						/>
 					</div>
 					<div class="text-field">
-						<label for="birthday">Birthday</label>
+						<label for="birthday">Ngày sinh</label>
 						<input
 							id="birthday"
 							type="date"
 							name="birthday"
-							placeholder="Birthday"
+							placeholder="VD 01/01/2000"
 							v-model="birthday"
 							required
 						/>
 					</div>
 					<div class="text-field">
-						<label for="gender">Gender</label>
+						<label for="gender">Giới tính</label>
 						<select id="gender" name="gender" v-model="gender" required>
 							<option value="0">Male</option>
 							<option value="1">Female</option>
@@ -89,33 +90,27 @@
 						</select>
 					</div>
 					<div class="text-field">
-						<label for="phoneNumber">Phone number</label>
+						<label for="phoneNumber">Số điện thoại</label>
 						<input
 							id="phoneNumber"
 							type="text"
 							name="phoneNumber"
-							placeholder="Phone Number"
+							placeholder="VD: 0123456789"
 							v-model="phoneNumber"
 							required
 						/>
 					</div>
-					<button class="my-form__button" type="submit">Sign up</button>
+					<button class="my-form__button" type="submit">Đăng kí</button>
 					<div class="my-form__actions">
 						<div class="my-form__row">
-							<span>Have an account?</span>
-							<router-link to="/login" title="Login"> Login </router-link>
+							<span>Bạn đã có tài khoản?</span>
+							<router-link to="/login" title="Login"> Đăng nhập </router-link>
 						</div>
 					</div>
 				</form>
 			</main>
 		</div>
 	</div>
-	<!-- <div v-if="isSuccess" class="notification">
-		<div class="notification__body">
-			Your account has been created! &#128640;
-		</div>
-		<div class="notification__progress"></div>
-	</div> -->
 	<Notification v-if="isSuccess" />
 </template>
 

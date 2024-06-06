@@ -1,9 +1,7 @@
 <template>
 	<div class="body">
 		<div class="notification">
-			<div class="notification__body">
-				Your account has been created! &#128640;
-			</div>
+			<div class="notification__body">Thành công! &#128640;</div>
 			<div class="notification__progress"></div>
 		</div>
 	</div>

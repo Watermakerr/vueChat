@@ -47,11 +47,11 @@
 		<main class="form-side">
 			<form class="my-form" @submit.prevent="changeInfomation">
 				<div class="form-welcome-row">
-					<h1>Update infomation</h1>
+					<h1>Cập nhật thông tin</h1>
 				</div>
 				<div class="text-field-row">
 					<div class="text-field">
-						<label for="firstname">First name</label>
+						<label for="firstname">Họ</label>
 						<input
 							id="firstname"
 							type="text"
@@ -62,7 +62,7 @@
 						/>
 					</div>
 					<div class="text-field">
-						<label for="lastname">Last name</label>
+						<label for="lastname">Tên</label>
 						<input
 							id="lastname"
 							type="text"
@@ -86,7 +86,7 @@
 					/>
 				</div>
 				<div class="text-field">
-					<label for="birthday">Birthday</label>
+					<label for="birthday">Ngày sinh</label>
 					<input
 						id="birthday"
 						type="date"
@@ -97,14 +97,14 @@
 					/>
 				</div>
 				<div class="text-field">
-					<label for="gender">Gender</label>
+					<label for="gender">Giới tính</label>
 					<select id="gender" name="gender" v-model="gender" required>
 						<option value="male">Male</option>
 						<option value="female">Female</option>
 						<option value="other">Khác</option>
 					</select>
 				</div>
-				<button class="my-form__button" type="submit">Undate</button>
+				<button class="my-form__button" type="submit">Cập nhật</button>
 			</form>
 		</main>
 	</div>

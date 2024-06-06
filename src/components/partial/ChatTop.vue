@@ -3,7 +3,7 @@
 		<div class="container1">
 			<img :src="ProfileImg" class="msgimg" />
 			<div class="active" @click="showProfileFriend()">
-				<p>User name</p>
+				<p>Tên người dùng</p>
 			</div>
 		</div>
 		<button class="close-btn" @click="closeChat">x</button>

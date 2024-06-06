@@ -5,8 +5,8 @@
 	>
 		<div class="text-center">
 			<FontAwesomeIcon :icon="faComment" />
-			<h2>No chat selected</h2>
-			<p>Select a chat to start messaging</p>
+			<h2>Không có cuộc hội thoại được chọn</h2>
+			<p>Chọn một cuộc hội thoại để bắt đầu nhắn tin</p>
 		</div>
 	</div>
 </template>
