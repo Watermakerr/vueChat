@@ -4,9 +4,9 @@
 			type="text"
 			v-model="message"
 			@keyup.enter="sendMessage"
-			placeholder="Type a message..."
+			placeholder="Nhập tin nhắn..."
 		/>
-		<button @click="sendMessage">Send</button>
+		<button @click="sendMessage">Gửi</button>
 	</div>
 </template>
 

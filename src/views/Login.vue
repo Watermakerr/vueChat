@@ -36,8 +36,8 @@ const login = async () => {
 	<div class="body">
 		<form @submit.prevent="login">
 			<div class="login-welcome-row">
-				<h1>Welcome back &#x1F44F;</h1>
-				<p>Please enter your details!</p>
+				<h1>Chào mừng trở lại &#x1F44F;</h1>
+				<p>Hãy nhập thông tin của bạn!</p>
 			</div>
 
 			<div class="input__wrapper">
@@ -50,7 +50,7 @@ const login = async () => {
 					v-model="username"
 					required
 				/>
-				<label for="username" class="input__label">Username:</label>
+				<label for="username" class="input__label">Tên đăng nhập:</label>
 				<svg
 					class="input__icon"
 					xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +79,7 @@ const login = async () => {
 					v-model="password"
 					required
 				/>
-				<label for="password" class="input__label"> Password: </label>
+				<label for="password" class="input__label">Mật khẩu: </label>
 				<svg
 					class="input__icon"
 					xmlns="http://www.w3.org/2000/svg"
@@ -101,13 +101,13 @@ const login = async () => {
 				</svg>
 			</div>
 
-			<button type="submit" class="my-form__button">Login</button>
+			<button type="submit" class="my-form__button">Đăng nhập</button>
 
 			<div class="my-form__actions">
 				<div class="my-form__row">
-					<span>Don't have an account?</span>
+					<span>Bạn không có tài khoản?</span>
 					<router-link to="/signup" title="Create Account">
-						Create account
+						Tao tài khoản mới
 					</router-link>
 				</div>
 			</div>
