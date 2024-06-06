@@ -3,7 +3,7 @@
 		<div class="container1">
 			<img :src="ProfileImg" class="msgimg" />
 			<div class="active" @click="showProfileFriend()">
-				<p>Tên người dùng</p>
+				<p>Nguyễn A</p>
 			</div>
 		</div>
 		<button class="close-btn" @click="closeChat">x</button>
@@ -12,12 +12,47 @@
 
 <script setup>
 import Profile from '@/assets/profile.jpg'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import axiosInstance from '@/api/axios.js'
 import { useStore } from '@/stores/store'
+import { useAuthStore } from '@/stores/auth'
 
-const store = useStore()
 const ProfileImg = ref(Profile)
+const store = useStore()
+const auth = useAuthStore()
 
+const user = ref(null)
+
+// onMounted(() => {
+// 	const fetchUserProfile = async () => {
+// 		try {
+// 			const response = await axiosInstance.get(
+// 				`/api/v1/user/profile/${store.profile_id}`,
+// 				{
+// 					headers: {
+// 						Authorization: `Bearer ${auth.accessToken}`
+// 					}
+// 				}
+// 			)
+// 			user.value = response.data
+// 			console.log(response.data)
+// 		} catch (error) {
+// 			console.error(error)
+// 			try {
+// 				const response = await axiosInstance.post('/api/v1/user/refresh/', {
+// 					refresh: auth.refreshToken
+// 				})
+// 				auth.setAcesstoken(response.data.access) // update the access token
+// 				// Retry fetching user profile after refreshing the token
+// 				fetchUserProfile()
+// 			} catch (error) {
+// 				// log out the user
+// 				auth.logout()
+// 			}
+// 		}
+// 	}
+// 	fetchUserProfile()
+// })
 const closeChat = () => {
 	store.setActiveConversation(null)
 }
@@ -28,52 +63,65 @@ const showProfileFriend = () => {
 </script>
 
 <style lang="scss" scoped>
-img {
-	width: 50px;
-	vertical-align: middle;
-	border-style: none;
-	border-radius: 100%;
-}
 /* Styling the msg-header container */
 .msg-header {
-	border: 1px solid #ccc;
+	border: 1px solid #e0e0e0;
 	width: 100%;
-	height: 10%;
-	border-bottom: none;
-	display: inline-block;
-	background-color: #efefef;
-	margin: 0;
-	position: relative;
+	height: 60px; /* Adjusted height */
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: #f5f5f5;
+	padding: 0 10px;
 }
+
 /* Styling the profile picture */
 .msgimg {
-	margin-left: 2%;
-	float: left;
+	width: 40px; /* Adjusted size */
+	height: 40px; /* Adjusted size */
+	border-radius: 50%;
+	object-fit: cover;
 }
 
 .container1 {
-	width: 270px;
-	height: 100%;
-	float: left;
-	margin: 0;
+	display: flex;
+	align-items: center;
 }
+
 .close-btn {
-	position: absolute;
-	top: 50%;
-	right: 2%;
-	// transform: translateY(-50%);
-	border: 1px solid #000; /* Add this line */
-	background: none;
-	// font-size: 1.5em;
-	width: 30px;
-	height: 30px;
-	transition:
-		background-color 0.3s ease,
-		color 0.3s ease; /* Add this line */
+	border: none;
+	background: #333;
+	color: white;
+	font-size: 16px;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
 }
 
 .close-btn:hover {
-	background-color: #000; /* Add this line */
-	color: #fff; /* Add this line */
+	background-color: white;
+	color: #333;
+}
+
+.active {
+	margin-left: 10px;
+	font-size: 16px;
+	color: #333;
+}
+
+/* Additional styles for better appearance */
+p {
+	margin: 0;
+	color: #555; /* Darker font color for better readability */
+}
+
+/* Enhance overall padding and margin for a cleaner look */
+.container1 {
+	padding: 0 15px;
 }
 </style>

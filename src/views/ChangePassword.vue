@@ -1,53 +1,52 @@
 <script setup>
-import { ref } from 'vue'
-import axios from 'axios'
-import { useRouter } from 'vue-router'
+// import { ref } from 'vue'
+// import axios from 'axios'
+// import { useRouter } from 'vue-router'
 
-const currentPassword = ref('')
-const newPassword = ref('')
-const confirmPassword = ref('')
-const lastname = ref('')
+// const currentPassword = ref('')
+// const newPassword = ref('')
+// const confirmPassword = ref('')
+// const lastname = ref('')
 
-const router = useRouter()
-const isSuccess = ref(false)
+// const router = useRouter()
+// const isSuccess = ref(false)
 // import Notification from './Notification.vue'
 
-const showSuccessNotification = () => {
-	isSuccess.value = true
-	setTimeout(() => {
-		isSuccess.value = false
-	}, 5000)
-	console.log('User registered successfully!')
-}
+// const checkUsername = () => {
+// 	const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{2,}$/
+// 	isUsernameValid.value = regex.test(username.value)
+// }
+// const showSuccessNotification = () => {
+// 	isSuccess.value = true
+// 	setTimeout(() => {
+// 		isSuccess.value = false
+// 	}, 5000)
+// 	console.log('User registered successfully!')
+// }
 
-const changePassword = async () => {
-	try {
-		const response = await axios.post(
-			'http://127.0.0.1:8000/api/v1/user/change-password/',
-			{
-				currentPassword: currentPassword.value,
-				newPassword: newPassword.value,
-				confirmPassword: confirmPassword.value
-			}
-		)
-		console.log(response.data)
-		isSuccess.value = true
-		setTimeout(() => {
-			router.push('/login')
-		}, 5000)
-	} catch (error) {
-		console.error(error)
-	}
-}
+// const changePassword = async () => {
+// 	try {
+// 		const response = await axios.post(
+// 			,
+// 			{
+
+// 			}
+// 		)
+// 		console.log(response.data)
+// 		isSuccess.value = true
+// 		setTimeout(() => {
+// 			router.push('/login')
+// 		}, 5000)
+// 	} catch (error) {
+// 		console.error(error)
+// 	}
+// }
 </script>
 <template>
 	<div class="all">
 		<div class="form-wrapper">
 			<main class="form-side">
 				<form class="my-form" @submit.prevent="changePassword">
-					<div class="form-welcome-row">
-						<h1>Đổi mật khẩu</h1>
-					</div>
 					<div class="text-field">
 						<input
 							type="text"
@@ -102,10 +101,11 @@ const changePassword = async () => {
 }
 .form-wrapper {
 	position: relative;
-	display: grid;
-	/* grid-template-columns: 6fr 5fr; */
-	margin: 0 auto;
-	height: 50rem;
+	display: flex; /* Use flexbox */
+	justify-content: center; /* Center horizontally */
+	align-items: center; /* Center vertically */
+	height: 100vh; /* Take full viewport height */
+	margin: auto auto;
 }
 
 .form-side {

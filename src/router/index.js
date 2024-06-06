@@ -4,10 +4,10 @@ import axiosInstance from '@/api/axios.js'
 import SignupView from '@/views/SignupView.vue'
 import ChatView from '@/views/ChatView.vue'
 import Login from '@/views/Login.vue'
-import Profile from '@/views/Profile.vue'
 import ChangePassword from '@/views/ChangePassword.vue'
 import ChangeInfomation from '@/views/ChangeInfo.vue'
-import ProfileFriend from '@/views/ProfileFriend.vue'
+import ProfileFriend from '@/components/partial/ProfileFriend.vue'
+import NotFound from '@/views/NotFound.vue'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,11 +28,6 @@ const router = createRouter({
 			component: SignupView
 		},
 		{
-			path: '/profile',
-			name: 'profile',
-			component: Profile
-		},
-		{
 			path: '/profileFriend',
 			name: 'profileFriend',
 			component: ProfileFriend
@@ -50,43 +45,23 @@ const router = createRouter({
 	]
 })
 
-// router.beforeEach(async (to, from, next) => {
-// 	const auth = useAuthStore()
-// 	console.log(auth.isAuthenticated)
+router.beforeEach((to, from, next) => {
+	const publicPages = ['login', 'signup', 'notFound']
+	const authRequired = !publicPages.includes(to.name)
 
-// 	if (to.name !== 'login' && to.name !== 'signup' && !auth.isAuthenticated) {
-// 		next({ name: 'login' })
-// 	} else if (
-// 		(to.name === 'login' || to.name === 'signup') &&
-// 		auth.isAuthenticated
-// 	) {
-// 		next({ name: 'home' })
-// 	} else if (auth.accessToken && !auth.isAuthenticated) {
-// 		try {
-// 			await axiosInstance.get('/api/v1/validate-token/', {
-// 				headers: { Authorization: `Bearer ${auth.accessToken}` }
-// 			})
-// 			next()
-// 		} catch (error) {
-// 			if (auth.refreshToken) {
-// 				try {
-// 					const response = await axiosInstance.post('/api/v1/refresh-token/', {
-// 						refresh: auth.refreshToken
-// 					})
-// 					auth.login(response.data.access, auth.refreshToken)
-// 					next()
-// 				} catch (error) {
-// 					auth.logout()
-// 					next({ name: 'login' })
-// 				}
-// 			} else {
-// 				auth.logout()
-// 				next({ name: 'login' })
-// 			}
-// 		}
-// 	} else {
-// 		next()
-// 	}
-// })
+	// Check if the user is authenticated
+	const token = localStorage.getItem('accessToken')
+	const isAuthenticated = token !== null
+
+	if (authRequired && !isAuthenticated) {
+		return next({ name: 'login' })
+	}
+
+	if (!authRequired && isAuthenticated) {
+		return next({ name: 'home' })
+	}
+
+	next()
+})
 
 export default router

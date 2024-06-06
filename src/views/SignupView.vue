@@ -150,7 +150,7 @@ const register = async () => {
 				email: email.value,
 				first_name: firstname.value,
 				last_name: lastname.value,
-				birthday: birthday.value,
+				birth_date: birthday.value,
 				gender: gender.value,
 				password: password.value,
 				phoneNumber: phoneNumber.value

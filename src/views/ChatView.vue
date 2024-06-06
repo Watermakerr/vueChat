@@ -1,20 +1,24 @@
 <template>
 	<div class="d-flex" style="height: 100vh">
-		<LeftBar :key="leftBarKey" :newMessage="newMessage" />
+		<LeftBar />
 		<NoChatSelected v-if="!getActiveConversation()" class="flex-grow-1" />
-		<ChatWindow v-else @message-sent="updateLeftBar" />
+		<ChatWindow v-else />
 		<div v-if="showProfileFriend()" class="overlay"></div>
 		<ProfileFriend v-if="showProfileFriend()" class="profile-friend" />
 	</div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useStore } from '@/stores/store'
 import LeftBar from '@/components/Navigation/LeftBar.vue'
 import NoChatSelected from '@/components/Chat/NoChatSelected.vue'
 import ChatWindow from '@/components/Chat/ChatWindow.vue'
-import ProfileFriend from '@/views/ProfileFriend.vue'
+import ProfileFriend from '@/components/partial/ProfileFriend.vue'
+import { useAuthStore } from '@/stores/auth'
+import axiosInstance from '@/api/axios.js'
+
+const auth = useAuthStore()
 
 const store = useStore()
 
@@ -25,19 +29,26 @@ const showProfileFriend = () => {
 const getActiveConversation = () => {
 	return store.activeConversation ? true : false
 }
-const leftBarKey = ref(0)
-const newMessage = ref(null)
 
-const updateLeftBar = message => {
-	// Update the newMessage reactive property
-	newMessage.value = { ...message }
-
-	// Force re-render the LeftBar component
-	leftBarKey.value++
-
-	// Emit the 'message-sent' event with the sent message
-	emit('message-sent', message)
-}
+onMounted(async () => {
+	console.log(auth.refreshToken)
+	console.log('here')
+	try {
+		await axiosInstance.post('/api/v1/user/token/', {
+			token: auth.accessToken
+		})
+	} catch (error) {
+		try {
+			const response = await axiosInstance.post('/api/v1/user/refresh/', {
+				refresh: auth.refreshToken
+			})
+			auth.setAcesstoken(response.data.access) // update the access token
+		} catch (error) {
+			// log out the user
+			auth.logout()
+		}
+	}
+})
 </script>
 
 <style lang="scss" scoped>

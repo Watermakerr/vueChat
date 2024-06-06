@@ -45,9 +45,9 @@ onMounted(async () => {
 			}
 		})
 		friends.value = response.data.friend_requests
-		console(friends.value)
+		console.log(friends.value)
 	} catch (error) {
-		console.error(error)
+		console.log(error)
 	}
 })
 

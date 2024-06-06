@@ -25,45 +25,16 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { defineProps } from 'vue'
 import ProfileImg from '@/assets/profile.jpg'
 import axiosInstance from '@/api/axios.js'
 import { useAuthStore } from '@/stores/auth'
 import { useStore } from '@/stores/store' // import your store
-
-const auth = useAuthStore()
 const store = useStore() // use your store
 
-let friends = ref([])
-
-onMounted(() => {
-	const fetchFriends = async () => {
-		try {
-			const response = await axiosInstance.get('/api/v1/user/friends/', {
-				headers: {
-					Authorization: `Bearer ${auth.accessToken}`
-				}
-			})
-			friends.value = response.data.friends
-			console.log(friends.value)
-		} catch (error) {
-			console.error(error)
-			try {
-				const response = await axiosInstance.post('/api/v1/user/refresh/', {
-					refresh: auth.refreshToken
-				})
-				auth.setAcesstoken(response.data.access) // update the access token
-				// Retry fetching friends after refreshing the token
-				fetchFriends()
-			} catch (error) {
-				// log out the user
-				auth.logout()
-			}
-		}
-	}
-	fetchFriends()
+const props = defineProps({
+	friends: Array
 })
-
 const displayFriend = friend => {
 	console.log(friend)
 	store.setProfileId(friend.id) // set profile_id to the id of the clicked friend

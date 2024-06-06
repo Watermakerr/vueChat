@@ -38,6 +38,7 @@ const formatDate = timestamp => {
 
 <style lang="scss" scoped>
 .received-chats-img {
+	margin-top: 20px;
 	width: 50px;
 	float: left;
 	height: auto;
