@@ -1,4 +1,36 @@
 <script setup>
+import { ref } from 'vue'
+import axiosInstance from '@/api/axios.js'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+
+const currentPassword = ref('')
+const newPassword = ref('')
+const confirmPasword = ref('')
+const auth = useAuthStore()
+const router = useRouter()
+
+const changePassword = async () => {
+	try {
+		const response = await axiosInstance.post(
+			'/api/v1/user/change-password/',
+			{
+				old_password: currentPassword.value,
+				new_password: newPassword.value
+			},
+			{
+				headers: {
+					Authorization: `Bearer ${auth.accessToken}`
+				}
+			}
+		)
+		console.log(response.data)
+		window.alert('Password changed successfully')
+		router.push('/')
+	} catch (error) {
+		console.error(error)
+	}
+}
 // import { ref } from 'vue'
 // import axios from 'axios'
 // import { useRouter } from 'vue-router'
