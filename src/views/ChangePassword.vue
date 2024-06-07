@@ -3,14 +3,27 @@ import { ref } from 'vue'
 import axiosInstance from '@/api/axios.js'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import Notification from '../components/partial/Notification.vue'
 
 const currentPassword = ref('')
 const newPassword = ref('')
 const confirmPasword = ref('')
+const isSuccess = ref(false)
 const auth = useAuthStore()
 const router = useRouter()
 
+const showSuccessNotification = () => {
+	isSuccess.value = true
+	console.log('User registered successfully!')
+}
+
 const changePassword = async () => {
+	// Check if new password and confirm password match
+	if (newPassword.value !== confirmPasword.value) {
+		window.alert('Mật khẩu lần 2 không đúng')
+		return
+	}
+
 	try {
 		const response = await axiosInstance.post(
 			'/api/v1/user/change-password/',
@@ -25,10 +38,13 @@ const changePassword = async () => {
 			}
 		)
 		console.log(response.data)
-		window.alert('Password changed successfully')
-		router.push('/')
+		showSuccessNotification()
+		setTimeout(() => {
+			router.push('/')
+		}, 3000)
 	} catch (error) {
 		console.error(error)
+		window.alert('Mật khẩu cũ không đúng')
 	}
 }
 </script>
@@ -37,9 +53,12 @@ const changePassword = async () => {
 		<div class="form-wrapper">
 			<main class="form-side">
 				<form class="my-form" @submit.prevent="changePassword">
+					<div class="form-welcome-row">
+						<h1>Đổi mật khẩu</h1>
+					</div>
 					<div class="text-field">
 						<input
-							type="text"
+							type="password"
 							id="currentPassword"
 							name="currentPassword"
 							placeholder="Nhập mật khẩu hiện tại"
@@ -50,7 +69,7 @@ const changePassword = async () => {
 					<div class="text-field">
 						<input
 							id="newPassword"
-							type="text"
+							type="password"
 							name="newPassword"
 							placeholder="Nhập mật khẩu mới"
 							v-model="newPassword"
@@ -60,22 +79,31 @@ const changePassword = async () => {
 					<div class="text-field">
 						<input
 							id="confirmPasword"
-							type="text"
+							type="password"
 							name="confirmPasword"
 							placeholder="Nhập lại mật khẩu mới"
 							v-model="confirmPasword"
 							required
 						/>
 					</div>
-
 					<button type="submit" class="my-form__button">Đổi mật khẩu</button>
 				</form>
 			</main>
 		</div>
 	</div>
+	<div class="notification-wrapper">
+		<Notification v-if="isSuccess" />
+	</div>
 </template>
 
 <style scoped>
+.notification-wrapper {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000; /* This ensures the notification stays on top of other elements */
+}
 * {
 	margin: 0;
 	padding: 0;

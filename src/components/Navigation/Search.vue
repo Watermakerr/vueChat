@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<h1>Tìm kiếm</h1>
 		<SearchBar v-model="phoneNumber" style="width: 30vw" />
 		<SearchFriend :friends="searchResults.users" />
 	</div>

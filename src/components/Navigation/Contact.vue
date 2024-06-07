@@ -1,6 +1,6 @@
 <template>
 	<div class="container1">
-		<h1>Contact</h1>
+		<h1>Danh bạ</h1>
 		<div class="friend-container">
 			<Friend class="friend1" />
 		</div>

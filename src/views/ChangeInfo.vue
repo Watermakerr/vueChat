@@ -1,51 +1,83 @@
 <script setup>
-// import { ref } from 'vue'
-// import axios from 'axios'
-// import { useRouter } from 'vue-router'
+import { ref, onMounted } from 'vue'
+import axiosIntance from '@/api/axios.js'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+import Notification from '../components/partial/Notification.vue'
 
-// const currentPassword = ref('')
-// const newPassword = ref('')
-// const confirmPassword = ref('')
-// const lastname = ref('')
+const auth = useAuthStore()
+const router = useRouter()
+let firstname = ref('')
+let lastname = ref('')
+let email = ref('')
+let birthday = ref('')
+let gender = ref('')
 
-// const router = useRouter()
-// const isSuccess = ref(false)
-// import Notification from './Notification.vue'
+const fetchData = async () => {
+	try {
+		const response = await axiosIntance.get(
+			`/api/v1/user/profile/${auth.currentUserId}`,
+			{
+				headers: {
+					Authorization: `Bearer ${auth.accessToken}` // replace `yourToken` with your actual token
+				}
+			}
+		)
+		const data = response.data
+		console.log(data)
+		firstname.value = data.first_name
+		lastname.value = data.last_name
+		email.value = data.email
+		birthday.value = data.birth_date
+		gender.value = data.gender
+	} catch (error) {
+		console.error(error)
+	}
+}
+const isSuccess = ref(false)
+const showSuccessNotification = () => {
+	isSuccess.value = true
+	console.log('User registered successfully!')
+}
+const updateData = async () => {
+	// Add this line
+	try {
+		await axiosIntance.put(
+			`/api/v1/user/profile-change/`,
+			{
+				first_name: firstname.value,
+				last_name: lastname.value,
+				email: email.value,
+				birth_date: birthday.value,
+				gender: gender.value
+			},
+			{
+				headers: {
+					Authorization: `Bearer ${auth.accessToken}` // replace `yourToken` with your actual token
+				}
+			}
+		)
+		console.log('updateData called')
+		showSuccessNotification()
+		setTimeout(() => {
+			router.push('/')
+		}, 3000)
+	} catch (error) {
+		console.error(error)
+	}
+}
 
-// const checkUsername = () => {
-// 	const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{2,}$/
-// 	isUsernameValid.value = regex.test(username.value)
-// }
-// const showSuccessNotification = () => {
-// 	isSuccess.value = true
-// 	setTimeout(() => {
-// 		isSuccess.value = false
-// 	}, 5000)
-// 	console.log('User registered successfully!')
-// }
-
-// const changePassword = async () => {
-// 	try {
-// 		const response = await axios.post(
-// 			,
-// 			{
-
-// 			}
-// 		)
-// 		console.log(response.data)
-// 		isSuccess.value = true
-// 		setTimeout(() => {
-// 			router.push('/login')
-// 		}, 5000)
-// 	} catch (error) {
-// 		console.error(error)
-// 	}
-// }
+onMounted(() => {
+	fetchData()
+})
+defineExpose({
+	updateData
+})
 </script>
 <template>
 	<div class="form-wrapper">
 		<main class="form-side">
-			<form class="my-form" @submit.prevent="changeInfomation">
+			<form class="my-form" @submit.prevent="updateData">
 				<div class="form-welcome-row">
 					<h1>Cập nhật thông tin</h1>
 				</div>
@@ -56,7 +88,6 @@
 							id="firstname"
 							type="text"
 							name="firstname"
-							value="Nguyẽn Văn"
 							v-model="firstname"
 							required
 						/>
@@ -67,7 +98,6 @@
 							id="lastname"
 							type="text"
 							name="lastname"
-							value="A"
 							v-model="lastname"
 							required
 						/>
@@ -80,7 +110,6 @@
 						id="email"
 						name="email"
 						autocomplete="off"
-						value="abcd"
 						v-model="email"
 						required
 					/>
@@ -91,7 +120,6 @@
 						id="birthday"
 						type="date"
 						name="birthday"
-						value="2000-01-01"
 						v-model="birthday"
 						required
 					/>
@@ -99,25 +127,28 @@
 				<div class="text-field">
 					<label for="gender">Giới tính</label>
 					<select id="gender" name="gender" v-model="gender" required>
-						<option value="male">Male</option>
-						<option value="female">Female</option>
-						<option value="other">Khác</option>
+						<option :value="0">Nam</option>
+						<option :value="1">Nữ</option>
 					</select>
 				</div>
+
 				<button class="my-form__button" type="submit">Cập nhật</button>
 			</form>
 		</main>
 	</div>
-	<!-- <div v-if="isSuccess" class="notification">
-		<div class="notification__body">
-			Your account has been created! &#128640;
-		</div>
-		<div class="notification__progress"></div>
-	</div> -->
-	<Notification v-if="isSuccess" />
+	<div class="notification-wrapper">
+		<Notification v-if="isSuccess" />
+	</div>
 </template>
 
 <style lang="scss" scoped>
+.notification-wrapper {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000; /* This ensures the notification stays on top of other elements */
+}
 * {
 	margin: 0;
 	padding: 0;

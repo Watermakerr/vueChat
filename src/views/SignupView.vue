@@ -111,7 +111,9 @@
 			</main>
 		</div>
 	</div>
-	<Notification v-if="isSuccess" />
+	<div class="notification-wrapper">
+		<Notification v-if="isSuccess" />
+	</div>
 </template>
 
 <script setup>
@@ -160,14 +162,32 @@ const register = async () => {
 		showSuccessNotification()
 		setTimeout(() => {
 			router.push('/login')
-		}, 5000)
+		}, 3000)
 	} catch (error) {
 		console.error(error)
+		if (error.response && error.response.data) {
+			let errorMessage = ''
+			if (error.response.data.username) {
+				errorMessage += 'Tên đăng nhập đã sử dụng'
+			} else if (error.response.data.phoneNumber) {
+				errorMessage += 'Số điện thoại đã sử dụng'
+			}
+			if (errorMessage) {
+				alert(errorMessage)
+			}
+		}
 	}
 }
 </script>
 
 <style lang="scss" scoped>
+.notification-wrapper {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000; /* This ensures the notification stays on top of other elements */
+}
 * {
 	margin: 0;
 	padding: 0;

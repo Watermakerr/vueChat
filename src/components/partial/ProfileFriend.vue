@@ -11,7 +11,6 @@
 			<div class="infomation">
 				<div class="column-small">
 					<p class="info-text">Họ và tên:</p>
-					<p class="info-text">Tên đăng nhập:</p>
 					<p class="info-text">Ngày sinh:</p>
 					<p class="info-text">Giới tính:</p>
 					<p class="info-text">Email:</p>
@@ -19,7 +18,6 @@
 				</div>
 				<div class="column-large">
 					<p class="info-text">{{ user?.first_name }} {{ user?.last_name }}</p>
-					<p class="info-text">{{ user?.username }}</p>
 					<p class="info-text">{{ user?.birth_date }}</p>
 					<p class="info-text">{{ user?.gender === 0 ? 'Nam' : 'Nữ' }}</p>
 					<p class="info-text">{{ user?.email }}</p>
@@ -36,6 +34,13 @@
 				</button>
 				<button class="card__btn" @click="message">Nhắn tin</button>
 			</div>
+			<div v-else>
+				<div class="d-flex justify-content-center align-items-center">
+					<button class="card__btn" @click="changeInfo" style="width: 300px">
+						Thay đổi thông tin
+					</button>
+				</div>
+			</div>
 			<button class="close-btn" @click="closeProfileFriend">x</button>
 		</div>
 	</div>
@@ -46,7 +51,9 @@ import { ref, onMounted } from 'vue'
 import axiosInstance from '@/api/axios.js'
 import { useAuthStore } from '@/stores/auth'
 import { useStore } from '@/stores/store'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const store = useStore()
 const auth = useAuthStore()
 
@@ -110,6 +117,9 @@ const addFriend = async () => {
 	} catch (error) {
 		console.error(error)
 	}
+}
+const changeInfo = () => {
+	router.push('/changeInformation')
 }
 </script>
 

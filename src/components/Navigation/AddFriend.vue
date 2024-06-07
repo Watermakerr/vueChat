@@ -1,5 +1,6 @@
 <template>
 	<div class="container1">
+		<h1>Lời mời kết bạn</h1>
 		<FriendRequest />
 	</div>
 </template>

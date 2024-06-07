@@ -4,7 +4,7 @@
 			<input
 				v-model="value"
 				autocomplete="off"
-				placeholder="search your friend phone number"
+				placeholder="Nhập số điện thoại cần tìm"
 				id="search"
 				type="text"
 			/>

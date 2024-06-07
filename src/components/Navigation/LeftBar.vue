@@ -51,7 +51,7 @@
 									@click="changePassword"
 									style="font-size: 14px; padding: 0"
 								>
-									Change Password
+									Đổi mật khẩu
 								</button>
 							</div>
 						</transition>

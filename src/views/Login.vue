@@ -7,7 +7,7 @@ const username = ref('')
 const password = ref('')
 const store = useAuthStore()
 const router = useRouter()
-
+const errorMessage = ref('')
 const login = async () => {
 	try {
 		const response = await axios.post(
@@ -29,6 +29,7 @@ const login = async () => {
 		router.push('/')
 	} catch (error) {
 		console.error(error)
+		errorMessage.value = `Sai tên đăng nhập hoặc mật khẩu`
 	}
 }
 </script>
@@ -99,6 +100,9 @@ const login = async () => {
 					<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0"></path>
 					<path d="M8 11v-4a4 4 0 1 1 8 0v4"></path>
 				</svg>
+				<div v-if="errorMessage" class="alert alert-danger">
+					{{ errorMessage }}
+				</div>
 			</div>
 
 			<button type="submit" class="my-form__button">Đăng nhập</button>
@@ -116,6 +120,13 @@ const login = async () => {
 </template>
 
 <style scoped>
+.notification-wrapper {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000; /* This ensures the notification stays on top of other elements */
+}
 * {
 	margin: 0;
 	padding: 0;
