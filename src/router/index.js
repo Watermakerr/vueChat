@@ -8,6 +8,8 @@ import ChangePassword from '@/views/ChangePassword.vue'
 import ChangeInfomation from '@/views/ChangeInfo.vue'
 import ProfileFriend from '@/components/partial/ProfileFriend.vue'
 import NotFound from '@/views/NotFound.vue'
+import forgotPassword from '@/views/forgotPassword.vue'
+import ResetPassword from '@/views/ResetPassword.vue'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -46,12 +48,28 @@ const router = createRouter({
 			path: '/:pathMatch(.*)*',
 			name: 'notFound',
 			component: NotFound
+		},
+		{
+			path: '/forgotPassword',
+			name: 'forgotPassword',
+			component: forgotPassword
+		},
+		{
+			path: '/reset-password/:uid/:token',
+			name: 'resetPassword',
+			component: ResetPassword
 		}
 	]
 })
 
 router.beforeEach((to, from, next) => {
-	const publicPages = ['login', 'signup', 'notFound']
+	const publicPages = [
+		'login',
+		'signup',
+		'notFound',
+		'resetPassword',
+		'forgotPassword'
+	]
 	const authRequired = !publicPages.includes(to.name)
 
 	// Check if the user is authenticated
