@@ -34,7 +34,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import axiosInstance from '@/api/axios.js'
 
 const password = ref('')
@@ -42,6 +42,7 @@ const confirmPassword = ref('')
 const isPasswordMatch = computed(() => password.value === confirmPassword.value)
 
 const route = useRoute()
+const router = useRouter()
 const uid = route.params.uid
 const token = route.params.token
 
@@ -58,7 +59,8 @@ const submitForm = async () => {
 			}
 		)
 		console.log(response.data)
-		alert('Password has been reset successfully')
+		alert('Mật khẩu đã được reset')
+		router.push('/login')
 	} catch (error) {
 		console.error(error)
 	}

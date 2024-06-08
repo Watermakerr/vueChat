@@ -109,9 +109,15 @@ const login = async () => {
 
 			<div class="my-form__actions">
 				<div class="my-form__row">
+					<span>Quên mật khẩu?</span>
+					<router-link to="/forgotPassword" title="Forgot Password">
+						Lấy lại mật khẩu
+					</router-link>
+				</div>
+				<div class="my-form__row">
 					<span>Bạn không có tài khoản?</span>
 					<router-link to="/signup" title="Create Account">
-						Tao tài khoản mới
+						Tạo tài khoản mới
 					</router-link>
 				</div>
 			</div>

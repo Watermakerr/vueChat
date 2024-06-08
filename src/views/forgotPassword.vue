@@ -19,7 +19,9 @@
 <script setup>
 import { ref } from 'vue'
 import axiosInstance from '@/api/axios.js'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const phoneNumber = ref('')
 
 const submitForm = async () => {
@@ -29,8 +31,10 @@ const submitForm = async () => {
 		})
 		console.log(response.data)
 		alert('Đường link reset password đã được gửi đến email của bạn')
+		router.push('/login')
 	} catch (error) {
 		console.error(error)
+		alert('Số điện thoại này không tồn tại')
 	}
 }
 </script>
