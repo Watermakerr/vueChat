@@ -1,17 +1,19 @@
 <template>
 	<div class="container">
 		<form @submit.prevent="submitForm">
+			<h1>Quên mật khẩu</h1>
 			<div class="mb-3">
-				<label for="phoneNumber" class="form-label">Phone Number</label>
+				<!-- <label for="phoneNumber" class="form-label">Phone Number</label> -->
 				<input
 					type="tel"
 					class="form-control"
 					id="phoneNumber"
 					v-model="phoneNumber"
+					placeholder="Nhập số điện thoại của bạn"
 					required
 				/>
 			</div>
-			<button type="submit" class="btn btn-primary">Submit</button>
+			<button type="submit" class="btn btn-dark">Xác nhận</button>
 		</form>
 	</div>
 </template>
@@ -39,4 +41,24 @@ const submitForm = async () => {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+form {
+	width: 100%;
+	max-width: 350px;
+}
+button {
+	margin-top: 10px;
+	width: 100%;
+}
+h1 {
+	text-align: center;
+	font-size: 2.5rem;
+	margin-bottom: 40px;
+}
+</style>
