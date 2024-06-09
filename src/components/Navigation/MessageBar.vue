@@ -85,6 +85,11 @@ onMounted(() => {
 const selectUser = id => {
 	selectedUserId.value = id
 	store.setActiveConversation(id)
+	const friend = users.value.find(user => user.id === id)
+	if (friend) {
+		store.setActiveConversationName(`${friend.first_name} ${friend.last_name}`)
+	}
+	console.log(store.activeConversationName)
 }
 
 const formatDate = timestamp => {
@@ -172,5 +177,9 @@ const updateMessageBar = (
 .list-group-item.active {
 	background-color: #007bff;
 	color: white;
+}
+.list-group {
+	max-height: 100vh; /* Adjust this value according to your needs */
+	overflow-y: auto;
 }
 </style>

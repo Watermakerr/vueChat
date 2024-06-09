@@ -66,7 +66,7 @@ onMounted(() => {
 
 const displayFriend = friend => {
 	console.log(friend)
-	store.setProfileId(friend.id) // set profile_id to the id of the clicked friend
+	store.setProfileId(friend.id)
 	console.log(store.profile_id)
 }
 </script>

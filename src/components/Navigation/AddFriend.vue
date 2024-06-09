@@ -29,5 +29,6 @@ const friendRequest = async () => {
 	display: flex;
 	width: 100%;
 	flex-direction: column;
+	overflow-y: auto;
 }
 </style>

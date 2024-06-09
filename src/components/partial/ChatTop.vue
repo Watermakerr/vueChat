@@ -3,10 +3,10 @@
 		<div class="container1">
 			<img :src="ProfileImg" class="msgimg" />
 			<div class="active" @click="showProfileFriend()">
-				<p>Tên người dùng</p>
+				<p>{{ store.activeConversationName }}</p>
 			</div>
 		</div>
-		<button class="close-btn" @click="closeChat">x</button>
+		<button class="close-btn" @click="closeChat" style="color: black">x</button>
 	</div>
 </template>
 
@@ -59,22 +59,22 @@ img {
 }
 .close-btn {
 	position: absolute;
-	align-items: center;
+	display: flex; /* Add this line */
+	justify-content: center; /* Add this line */
+	align-items: center; /* Add this line */
 	top: 20%;
 	right: 2%;
-	// transform: translateY(-50%);
-	border: 1px solid #000; /* Add this line */
+	border: 1px solid #000;
 	background: none;
-	// font-size: 1.5em;
 	width: 30px;
 	height: 30px;
 	transition:
 		background-color 0.3s ease,
-		color 0.3s ease; /* Add this line */
+		color 0.3s ease;
 }
 
 .close-btn:hover {
-	background-color: #000; /* Add this line */
-	color: #fff; /* Add this line */
+	background-color: #fff; /* Add this line */
+	color: #000; /* Add this line */
 }
 </style>

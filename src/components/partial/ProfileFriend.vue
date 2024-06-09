@@ -95,8 +95,9 @@ const closeProfileFriend = () => {
 }
 const message = () => {
 	store.setActiveConversation(store.profile_id)
-	store.setActiveProfile(`${user.value.first_name} ${user.value.last_name}`)
-
+	store.setActiveConversationName(
+		`${user.value.first_name} ${user.value.last_name}`
+	)
 	closeProfileFriend()
 }
 

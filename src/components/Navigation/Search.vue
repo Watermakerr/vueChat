@@ -1,7 +1,7 @@
 <template>
-	<div>
+	<div class="search">
 		<h1>Tìm kiếm</h1>
-		<SearchBar v-model="phoneNumber" style="width: 30vw" />
+		<SearchBar v-model="phoneNumber" style="width: 98%" />
 		<SearchFriend :friends="searchResults.users" />
 	</div>
 </template>
@@ -40,4 +40,9 @@ watch(phoneNumber, async (newVal, oldVal) => {
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.search {
+	max-height: 100vh; /* Adjust this value according to your needs */
+	overflow-y: auto;
+}
+</style>

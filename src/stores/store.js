@@ -3,6 +3,9 @@ import { defineStore } from 'pinia'
 
 export const useStore = defineStore('store', () => {
 	const profile_id = ref(null)
+	const activeConversationName = ref(
+		localStorage.getItem('activeConversationName') || null
+	)
 	const activeSidebarComponent = ref(
 		localStorage.getItem('activeSidebarComponent') || 'messages'
 	)
@@ -19,6 +22,10 @@ export const useStore = defineStore('store', () => {
 		activeConversation.value = id
 		localStorage.setItem('activeConversation', id)
 	}
+	const setActiveConversationName = name => {
+		activeConversationName.value = name
+		localStorage.setItem('activeConversationName', name)
+	}
 
 	const setActiveProfile = name => {
 		activeProfile.value = name
@@ -30,8 +37,10 @@ export const useStore = defineStore('store', () => {
 		activeSidebarComponent,
 		activeConversation,
 		activeProfile,
+		activeConversationName,
 		setProfileId,
 		setActiveConversation,
-		setActiveProfile
+		setActiveProfile,
+		setActiveConversationName
 	}
 })
