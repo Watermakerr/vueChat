@@ -48,6 +48,7 @@ const displayFriend = friend => {
 	height: 50px;
 	overflow: hidden;
 	display: flex;
+	cursor: pointer;
 }
 .friend-list {
 	height: 100%;

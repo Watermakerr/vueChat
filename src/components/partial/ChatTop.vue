@@ -1,8 +1,15 @@
 <template>
 	<div class="msg-header">
 		<div class="container1">
-			<img :src="ProfileImg" class="msgimg" />
-			<div class="active" @click="showProfileFriend()">
+			<img
+				:src="ProfileImg"
+				class="msgimg"
+				style="cursor: pointer"
+				@click="showProfileFriend"
+			/>
+			<!-- Add @click here -->
+			<div class="active" @click="showProfileFriend">
+				<!-- Add @click here -->
 				<p>{{ store.activeConversationName }}</p>
 			</div>
 		</div>
@@ -23,11 +30,16 @@ const closeChat = () => {
 }
 
 const showProfileFriend = () => {
-	store.goToProfileFriend = true
+	store.setProfileId(store.activeConversation)
 }
 </script>
 
 <style lang="scss" scoped>
+.active {
+	margin-top: 12px;
+	margin-bottom: auto;
+	cursor: pointer;
+}
 img {
 	width: 50px;
 	vertical-align: middle;

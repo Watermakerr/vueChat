@@ -88,6 +88,7 @@ const rejectRequest = id => {
 	height: 50px;
 	overflow: hidden;
 	display: flex;
+	cursor: pointer;
 }
 
 .profile-img {
