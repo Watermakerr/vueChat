@@ -1,5 +1,5 @@
 <template>
-	<div class="d-flex" style="height: 100vh">
+	<div class="d-flex" style="height: 100%; overflow: hidden">
 		<LeftBar />
 		<NoChatSelected v-if="!getActiveConversation()" class="flex-grow-1" />
 		<ChatWindow v-else />

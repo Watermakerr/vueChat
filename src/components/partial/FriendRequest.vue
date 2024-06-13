@@ -9,9 +9,11 @@
 						alt="Profile image"
 					/>
 				</div>
-				<div class="col-md-8 d-flex">
+				<div class="col-md-8 d-flex justify-content-between">
+					<!-- Add justify-content-between here -->
 					<h5>{{ friend.username }}</h5>
-					<div style="margin-left: 70px">
+					<div class="icon-container">
+						<!-- Add a class here -->
 						<button class="" @click="acceptRequest(friend.id)">
 							<font-awesome-icon :icon="faCheck" />
 						</button>
@@ -77,6 +79,10 @@ const rejectRequest = id => {
 </script>
 
 <style scoped>
+.friend-list {
+	overflow-y: auto; /* Add this line */
+	max-height: 100vh; /* Set a maximum height */
+}
 .friend-card {
 	width: 100%;
 	height: 50px;

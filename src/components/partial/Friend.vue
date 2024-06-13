@@ -78,6 +78,10 @@ const displayFriend = friend => {
 	overflow: hidden;
 	display: flex;
 }
+.friend-list {
+	height: 100%;
+	overflow-y: auto;
+}
 
 .profile-img {
 	width: 50px;
