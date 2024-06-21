@@ -1,5 +1,11 @@
 <template>
-	<div class="container">
+	<div
+		v-if="isLoading"
+		class="d-flex justify-content-center align-items-center vh-100"
+	>
+		<Spinner />
+	</div>
+	<div v-else-if="isVerified" class="container">
 		<form @submit.prevent="submitForm">
 			<h1>Tạo mật khẩu mới</h1>
 			<div class="mb-3">
@@ -29,12 +35,17 @@
 			</button>
 		</form>
 	</div>
+	<div v-else>
+		<NotFound />
+	</div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import axiosInstance from '@/api/axios.js'
+import NotFound from '@/views/NotFound.vue'
+import Spinner from '@/components/partial/Spinner.vue'
 
 const password = ref('')
 const confirmPassword = ref('')
@@ -44,6 +55,27 @@ const route = useRoute()
 const router = useRouter()
 const uid = route.params.uid
 const token = route.params.token
+
+const isVerified = ref(false)
+const isLoading = ref(true)
+
+onMounted(async () => {
+	try {
+		const response = await axiosInstance.get(
+			`/api/v1/user/verify/${uid}/${token}/`
+		)
+		if (response.status !== 200) {
+			alert('Link không hợp lệ')
+		} else {
+			isVerified.value = true
+		}
+	} catch (error) {
+		console.error(error)
+		alert('Link không hợp lệ')
+	} finally {
+		isLoading.value = false
+	}
+})
 
 const submitForm = async () => {
 	if (!isPasswordMatch.value) {
