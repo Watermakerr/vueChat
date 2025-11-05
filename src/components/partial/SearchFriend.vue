@@ -1,9 +1,9 @@
 <template>
 	<div class="friend-list">
 		<div
-			class="friend-card card"
 			v-for="friend in friends"
 			:key="friend.id"
+			class="friend-card card"
 			@click="displayFriend(friend)"
 		>
 			<div class="row g-0 align-items-start">

@@ -13,7 +13,7 @@
 				<p>{{ store.activeConversationName }}</p>
 			</div>
 		</div>
-		<button class="close-btn" @click="closeChat" style="color: black">x</button>
+		<button class="close-btn" style="color: black" @click="closeChat">x</button>
 	</div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
 	<div class="w-100 d-flex flex-column">
 		<ChatTop />
-		<div class="chat-container flex-grow-1 overflow-auto" ref="chatContainer">
+		<div ref="chatContainer" class="chat-container flex-grow-1 overflow-auto">
 			<div v-for="message in messages" :key="message.id">
 				<OutGoingChat
 					v-if="message.sender.id === auth.currentUserId"
@@ -23,13 +23,13 @@ import ChatInput from '../partial/ChatInput.vue'
 import { useStore } from '@/stores/store'
 import { useAuthStore } from '@/stores/auth'
 import axiosInstance from '@/api/axios.js'
+import { useChatStore } from '@/stores/chat'
 
 // State
 const store = useStore()
 const auth = useAuthStore()
 const chatContainer = ref(null)
 const messages = ref([])
-import { useChatStore } from '@/stores/chat'
 
 const chatStore = useChatStore()
 

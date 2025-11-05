@@ -43,12 +43,12 @@ const login = async () => {
 
 			<div class="input__wrapper">
 				<input
-					type="text"
 					id="username"
+					v-model="username"
+					type="text"
 					name="username"
 					class="input__field"
 					placeholder="Your username"
-					v-model="username"
 					required
 				/>
 				<label for="username" class="input__label">Tên đăng nhập:</label>
@@ -64,20 +64,18 @@ const login = async () => {
 					stroke-linecap="round"
 					stroke-linejoin="round"
 				>
-					<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-					<path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
-					<path
-						d="M16 12v1.5a2.5 2.5 0 0 0 5 0v-1.5a9 9 0 1 0 -5.5 8.28"
-					></path>
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+					<path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+					<path d="M16 12v1.5a2.5 2.5 0 0 0 5 0v-1.5a9 9 0 1 0 -5.5 8.28" />
 				</svg>
 			</div>
 			<div class="input__wrapper">
 				<input
 					id="password"
+					v-model="password"
 					type="password"
 					class="input__field"
 					placeholder="Your Password"
-					v-model="password"
 					required
 				/>
 				<label for="password" class="input__label">Mật khẩu: </label>
@@ -93,12 +91,12 @@ const login = async () => {
 					stroke-linecap="round"
 					stroke-linejoin="round"
 				>
-					<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 					<path
 						d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z"
-					></path>
-					<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0"></path>
-					<path d="M8 11v-4a4 4 0 1 1 8 0v4"></path>
+					/>
+					<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+					<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
 				</svg>
 				<div v-if="errorMessage" class="alert alert-danger">
 					{{ errorMessage }}

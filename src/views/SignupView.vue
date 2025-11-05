@@ -12,10 +12,10 @@
 							<label for="firstname">Họ</label>
 							<input
 								id="firstname"
+								v-model="firstname"
 								type="text"
 								name="firstname"
 								placeholder="VD: Nguyễn Văn"
-								v-model="firstname"
 								required
 							/>
 						</div>
@@ -23,10 +23,10 @@
 							<label for="lastname">Tên</label>
 							<input
 								id="lastname"
+								v-model="lastname"
 								type="text"
 								name="lastname"
 								placeholder="VD: A"
-								v-model="lastname"
 								required
 							/>
 						</div>
@@ -34,14 +34,14 @@
 					<div class="text-field">
 						<label for="username">Tên đăng nhập</label>
 						<input
-							type="text"
 							id="username"
+							v-model="username"
+							type="text"
 							name="username"
 							autocomplete="off"
 							placeholder="VD: nguyenvana123"
-							v-model="username"
-							@input="checkUsername"
 							required
+							@input="checkUsername"
 						/>
 						<div v-if="!isUsernameValid" class="error-message">
 							Tên đăng nhập bao gồm ít nhất một chữ cái, một số và một ký tự đặc
@@ -51,12 +51,12 @@
 					<div class="text-field">
 						<label for="email">Email</label>
 						<input
-							type="email"
 							id="email"
+							v-model="email"
+							type="email"
 							name="email"
 							autocomplete="off"
 							placeholder="VD: nguyena@gmail.com"
-							v-model="email"
 							required
 						/>
 					</div>
@@ -64,9 +64,9 @@
 						<label for="password">Mật khẩu</label>
 						<input
 							id="password"
+							v-model="password"
 							type="password"
 							name="password"
-							v-model="password"
 							required
 						/>
 					</div>
@@ -74,16 +74,16 @@
 						<label for="birthday">Ngày sinh</label>
 						<input
 							id="birthday"
+							v-model="birthday"
 							type="date"
 							name="birthday"
 							placeholder="VD 01/01/2000"
-							v-model="birthday"
 							required
 						/>
 					</div>
 					<div class="text-field">
 						<label for="gender">Giới tính</label>
-						<select id="gender" name="gender" v-model="gender" required>
+						<select id="gender" v-model="gender" name="gender" required>
 							<option value="0">Male</option>
 							<option value="1">Female</option>
 							<option value="2">Khác</option>
@@ -93,10 +93,10 @@
 						<label for="phoneNumber">Số điện thoại</label>
 						<input
 							id="phoneNumber"
+							v-model="phoneNumber"
 							type="text"
 							name="phoneNumber"
 							placeholder="VD: 0123456789"
-							v-model="phoneNumber"
 							required
 						/>
 					</div>
@@ -120,6 +120,7 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
+import Notification from '../components/partial/Notification.vue'
 
 const username = ref('')
 const password = ref('')
@@ -132,7 +133,6 @@ const phoneNumber = ref('')
 const router = useRouter()
 const isUsernameValid = ref(false)
 const isSuccess = ref(false)
-import Notification from '../components/partial/Notification.vue'
 
 const checkUsername = () => {
 	const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{2,}$/

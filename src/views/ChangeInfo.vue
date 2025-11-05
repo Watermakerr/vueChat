@@ -7,11 +7,11 @@ import Notification from '../components/partial/Notification.vue'
 
 const auth = useAuthStore()
 const router = useRouter()
-let firstname = ref('')
-let lastname = ref('')
-let email = ref('')
-let birthday = ref('')
-let gender = ref('')
+const firstname = ref('')
+const lastname = ref('')
+const email = ref('')
+const birthday = ref('')
+const gender = ref('')
 
 const fetchData = async () => {
 	try {
@@ -86,9 +86,9 @@ defineExpose({
 						<label for="firstname">Họ</label>
 						<input
 							id="firstname"
+							v-model="firstname"
 							type="text"
 							name="firstname"
-							v-model="firstname"
 							required
 						/>
 					</div>
@@ -96,9 +96,9 @@ defineExpose({
 						<label for="lastname">Tên</label>
 						<input
 							id="lastname"
+							v-model="lastname"
 							type="text"
 							name="lastname"
-							v-model="lastname"
 							required
 						/>
 					</div>
@@ -106,11 +106,11 @@ defineExpose({
 				<div class="text-field">
 					<label for="email">Email</label>
 					<input
-						type="email"
 						id="email"
+						v-model="email"
+						type="email"
 						name="email"
 						autocomplete="off"
-						v-model="email"
 						required
 					/>
 				</div>
@@ -118,15 +118,15 @@ defineExpose({
 					<label for="birthday">Ngày sinh</label>
 					<input
 						id="birthday"
+						v-model="birthday"
 						type="date"
 						name="birthday"
-						v-model="birthday"
 						required
 					/>
 				</div>
 				<div class="text-field">
 					<label for="gender">Giới tính</label>
-					<select id="gender" name="gender" v-model="gender" required>
+					<select id="gender" v-model="gender" name="gender" required>
 						<option :value="0">Nam</option>
 						<option :value="1">Nữ</option>
 					</select>

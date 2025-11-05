@@ -25,12 +25,12 @@ const props = defineProps({
 	}
 })
 const formatDate = timestamp => {
-	let date = new Date(timestamp)
-	let day = String(date.getDate()).padStart(2, '0') // pad single digit day with 0
-	let month = String(date.getMonth() + 1).padStart(2, '0') // pad single digit month with 0
-	let year = date.getFullYear()
-	let hours = String(date.getHours()).padStart(2, '0') // pad single digit hours with 0
-	let minutes = String(date.getMinutes()).padStart(2, '0') // pad single digit minutes with 0
+	const date = new Date(timestamp)
+	const day = String(date.getDate()).padStart(2, '0') // pad single digit day with 0
+	const month = String(date.getMonth() + 1).padStart(2, '0') // pad single digit month with 0
+	const year = date.getFullYear()
+	const hours = String(date.getHours()).padStart(2, '0') // pad single digit hours with 0
+	const minutes = String(date.getMinutes()).padStart(2, '0') // pad single digit minutes with 0
 
 	return `${day}-${month}-${year} ${hours}:${minutes}`
 }

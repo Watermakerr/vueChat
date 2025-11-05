@@ -5,10 +5,10 @@
 			<div class="mb-3">
 				<!-- <label for="phoneNumber" class="form-label">Phone Number</label> -->
 				<input
-					type="tel"
-					class="form-control"
 					id="phoneNumber"
 					v-model="phoneNumber"
+					type="tel"
+					class="form-control"
 					placeholder="Nhập số điện thoại của bạn"
 					required
 				/>

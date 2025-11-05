@@ -58,31 +58,31 @@ const changePassword = async () => {
 					</div>
 					<div class="text-field">
 						<input
-							type="password"
 							id="currentPassword"
+							v-model="currentPassword"
+							type="password"
 							name="currentPassword"
 							placeholder="Nhập mật khẩu hiện tại"
-							v-model="currentPassword"
 							required
 						/>
 					</div>
 					<div class="text-field">
 						<input
 							id="newPassword"
+							v-model="newPassword"
 							type="password"
 							name="newPassword"
 							placeholder="Nhập mật khẩu mới"
-							v-model="newPassword"
 							required
 						/>
 					</div>
 					<div class="text-field">
 						<input
 							id="confirmPasword"
+							v-model="confirmPasword"
 							type="password"
 							name="confirmPasword"
 							placeholder="Nhập lại mật khẩu mới"
-							v-model="confirmPasword"
 							required
 						/>
 					</div>

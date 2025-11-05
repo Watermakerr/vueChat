@@ -3,7 +3,7 @@
 		<LeftBar />
 		<NoChatSelected v-if="!getActiveConversation()" class="flex-grow-1" />
 		<ChatWindow v-else />
-		<div v-if="showProfileFriend()" class="overlay"></div>
+		<div v-if="showProfileFriend()" class="overlay" />
 		<ProfileFriend v-if="showProfileFriend()" class="profile-friend" />
 	</div>
 </template>
@@ -23,11 +23,11 @@ const auth = useAuthStore()
 const store = useStore()
 
 const showProfileFriend = () => {
-	return store.profile_id ? true : false
+	return !!store.profile_id
 }
 
 const getActiveConversation = () => {
-	return store.activeConversation ? true : false
+	return !!store.activeConversation
 }
 
 onMounted(async () => {

@@ -1,11 +1,11 @@
 <template>
 	<div class="list-group">
 		<button
-			class="list-group-item list-group-item-action d-flex align-items-center"
 			v-for="user in users"
 			:key="user.id"
-			@click="selectUser(user.id)"
+			class="list-group-item list-group-item-action d-flex align-items-center"
 			:class="{ active: selectedUserId === user.id }"
+			@click="selectUser(user.id)"
 		>
 			<img
 				:src="user.avatar"
@@ -34,11 +34,11 @@ import axiosInstance from '@/api/axios.js'
 const store = useStore()
 const auth = useAuthStore()
 
-let users = ref([])
-let selectedUserId = ref(store.activeConversation)
-let sendSocket = ref(null)
+const users = ref([])
+const selectedUserId = ref(store.activeConversation)
+const sendSocket = ref(null)
 
-let truncatedUsers = computed(() => {
+const truncatedUsers = computed(() => {
 	return users.value.map(user => ({
 		...user,
 		last_message: {
@@ -93,12 +93,12 @@ const selectUser = id => {
 }
 
 const formatDate = timestamp => {
-	let date = new Date(timestamp)
-	let day = String(date.getDate()).padStart(2, '0')
-	let month = String(date.getMonth() + 1).padStart(2, '0')
-	let year = date.getFullYear()
-	let hours = String(date.getHours()).padStart(2, '0')
-	let minutes = String(date.getMinutes()).padStart(2, '0')
+	const date = new Date(timestamp)
+	const day = String(date.getDate()).padStart(2, '0')
+	const month = String(date.getMonth() + 1).padStart(2, '0')
+	const year = date.getFullYear()
+	const hours = String(date.getHours()).padStart(2, '0')
+	const minutes = String(date.getMinutes()).padStart(2, '0')
 
 	return `${day}-${month}-${year} ${hours}:${minutes}`
 }
