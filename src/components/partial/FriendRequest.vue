@@ -1,6 +1,6 @@
 <template>
 	<div class="friend-list">
-		<div class="friend-card card" v-for="friend in friends" :key="friend.id">
+		<div v-for="friend in friends" :key="friend.id" class="friend-card card">
 			<div class="row g-0 align-items-center">
 				<div class="col-md-2">
 					<img
@@ -37,7 +37,7 @@ import { useAuthStore } from '@/stores/auth'
 
 const auth = useAuthStore()
 
-let friends = ref([])
+const friends = ref([])
 
 onMounted(async () => {
 	try {

@@ -1,10 +1,10 @@
 <template>
 	<div class="input-section">
 		<input
-			type="text"
 			v-model="message"
-			@keyup.enter="sendMessage"
+			type="text"
 			placeholder="Nhập tin nhắn..."
+			@keyup.enter="sendMessage"
 		/>
 		<button @click="sendMessage">Gửi</button>
 	</div>

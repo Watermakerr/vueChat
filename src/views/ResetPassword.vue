@@ -11,21 +11,21 @@
 			<div class="mb-3">
 				<!-- <label for="password" class="form-label">Password</label> -->
 				<input
+					id="password"
+					v-model="password"
 					type="password"
 					class="form-control"
-					id="password"
 					placeholder="Nhập mật khẩu mới"
-					v-model="password"
 					required
 				/>
 			</div>
 			<div class="mb-3">
 				<!-- <label for="confirmPassword" class="form-label">Confirm Password</label> -->
 				<input
-					type="password"
-					class="form-control"
 					id="confirmPassword"
 					v-model="confirmPassword"
+					type="password"
+					class="form-control"
 					placeholder="Nhập lại mật khẩu mới"
 					required
 				/>

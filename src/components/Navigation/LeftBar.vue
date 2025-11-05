@@ -48,8 +48,8 @@
 						<transition name="slide">
 							<div v-show="showSettings" class="submenu" style="width: 62.5px">
 								<button
-									@click="changePassword"
 									style="font-size: 14px; padding: 0"
+									@click="changePassword"
 								>
 									Đổi mật khẩu
 								</button>
@@ -120,7 +120,7 @@ const logout = () => {
 	auth.logout()
 	router.push('/login')
 }
-let showSettings = ref(false)
+const showSettings = ref(false)
 const changePassword = () => {
 	router.push('/changePassword')
 }

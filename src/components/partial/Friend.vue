@@ -1,9 +1,9 @@
 <template>
 	<div class="friend-list">
 		<div
-			class="friend-card card"
 			v-for="friend in friends"
 			:key="friend.id"
+			class="friend-card card"
 			@click="displayFriend(friend)"
 		>
 			<div class="row g-0 align-items-start">
@@ -34,7 +34,7 @@ import { useStore } from '@/stores/store' // import your store
 const auth = useAuthStore()
 const store = useStore() // use your store
 
-let friends = ref([])
+const friends = ref([])
 
 onMounted(() => {
 	const fetchFriends = async () => {
